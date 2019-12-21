@@ -1,15 +1,31 @@
 {
-    "name": "com.roj.martyna.pugtale",
-    "displayName": "Pugtale",
-    "version": "0.0.0",
-    "description": "Little platform game with a pug (dog) as a main hero, who goes on an adventure.",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "com.roj.martyna.pugtale",
+  "displayName": "Pugtale",
+  "version": "1.0.0",
+  "description": "Little platform game with a pug (dog) as a main hero, who goes on an adventure.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Martyna Rój",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cordova-android": "^8.1.0",
+    "cordova-browser": "6.0.0"
+  },
+  "devDependencies": {
+    "cordova-plugin-whitelist": "^1.3.4"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {}
     },
-    "keywords": [
-        "ecosystem:cordova"
-    ],
-    "author": "Martyna Rój",
-    "license": "Apache-2.0"
+    "platforms": [
+      "android",
+      "browser"
+    ]
+  }
 }
