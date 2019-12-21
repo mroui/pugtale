@@ -1,0 +1,15 @@
+{
+    "name": "com.roj.martyna.pugtale",
+    "displayName": "Pugtale",
+    "version": "0.0.0",
+    "description": "Little platform game with a pug (dog) as a main hero, who goes on an adventure.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "ecosystem:cordova"
+    ],
+    "author": "Martyna Rój",
+    "license": "Apache-2.0"
+}
