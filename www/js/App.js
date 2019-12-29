@@ -25,7 +25,8 @@ class App {
     //Start menu app
     start = () => {
         let menu = new Menu();
-        document.getElementById("muteButton").onclick = menu.muteButton;
-        menu.playMusic();
+        document.getElementById("muteButton").onclick = menu.onclickMuteButton;
+        menu.playMenuMusic();
     }
+
 };
