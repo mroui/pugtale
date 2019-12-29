@@ -8,6 +8,7 @@
         Martyna Rój
     </author>
     <content src="index.html" />
+    <icon src="www/assets/pug-running.gif"/>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
