@@ -93,7 +93,11 @@ canvas {
 
 #muteButton {
     position: absolute;
-    top: 20px;
+    margin: 20px;
+    left: 0;
+    top: 0;
+    font-size: var(--big-font-size);
+    color: var(--text-color);
 }
 
 @media screen and (max-width: 720px) {
