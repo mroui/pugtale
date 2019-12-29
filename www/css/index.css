@@ -75,7 +75,7 @@ body {
 @-webkit-keyframes run { 0% { left: -48px;} 100%{ left : calc(100%); } }
 
 .pug-gif {
-    background-image: url("../assets/pug-running.gif");
+    background-image: url("../assets/images/pug-running.gif");
     width: 48px;
     height: 48px;
     background-repeat:no-repeat;
