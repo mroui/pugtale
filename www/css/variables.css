@@ -4,7 +4,8 @@
 
     --main-font: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
 
-    --small-font-size: 2vw;
-    --big-font-size: 4vw;
-    --title-font-size: 7vw;
+    --small-font-size: 18px;
+    --big-font-size: 32px;
+    --title-small-font-size: 64px;
+    --title-big-font-size: 82px;
 }
