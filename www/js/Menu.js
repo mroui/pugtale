@@ -2,6 +2,7 @@ class Menu {
 
     constructor() {
         this.sound = null;
+        document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
     }
 
     playMenuMusic = () => {
@@ -11,14 +12,8 @@ class Menu {
     }
 
     onclickMuteButton = () => {
-        if(this.sound.getIsMute()) {
-            this.sound.mute(false);
-            this.setMuteIcon(false);
-        }
-        else {
-            this.sound.mute(true);
-            this.setMuteIcon(true);
-        }
+        this.sound.getIsMute() ? this.sound.mute(false) : this.sound.mute(true);
+        this.setMuteIcon();
     }
 
     setMuteIcon = () => {
