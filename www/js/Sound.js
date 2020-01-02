@@ -1,17 +1,7 @@
 class Sound {
 
-    constructor(url, autoplay, loop) {
-        let path = window.location.pathname;
-        let phoneGapPath = path.substring(0, path.lastIndexOf('/') + 1);
-
-        if(device.platform === "Android") url = "file://" + phoneGapPath + url;
-        else url = "../" + url;
-
-        this.sound = new Howl({
-            src: url,
-            autoplay,
-            loop
-        });
+    constructor(sound) {
+        this.sound = sound
 
         if (device.model == "Chrome") this.isMute = true;
         else this.isMute = false;

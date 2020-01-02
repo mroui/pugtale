@@ -1,12 +1,13 @@
 class Menu {
 
-    constructor() {
+    constructor(assetsLoader) {
+        this.assetsLoader = assetsLoader;
         this.sound = null;
-        document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
+        this.setListeners();
     }
 
     playMenuMusic = () => {
-        this.sound = new Sound("assets/sounds/menu.wav", true, true);
+        this.sound = new Sound(this.assetsLoader.get("MENU"));
         this.setMuteIcon();
         this.sound.play();
     }
@@ -25,5 +26,15 @@ class Menu {
             document.getElementById("muteButton").classList.remove("fa-volume-mute");
             document.getElementById("muteButton").classList.add("fa-volume-up");
         }
+    }
+
+    setListeners = () => {
+        document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
+        document.getElementById("menu-play").addEventListener("click", this.playNewGame);
+    }
+
+    playNewGame = () => {
+        let game = new Game(this.assetsLoader);
+        game.start();
     }
 }
