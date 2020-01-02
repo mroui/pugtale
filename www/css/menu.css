@@ -1,11 +1,14 @@
 .menu {
-    position: absolute;
     display: flex;
+    position: absolute;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .5s ease-out;
 }
 
 .menu__title {
@@ -17,6 +20,7 @@
 .menu__list {
     margin: 0;
     padding: 0;
+    width: 100%;
     font-family: var(--main-font);
     font-weight: 600;
     font-size: var(--big-font-size);
@@ -25,12 +29,16 @@
 
 .menu__element {
     list-style: none;
-    margin-top: 40px;
+    padding: 20px;
     letter-spacing: .5em;
+    transition: background 1s ease-out;
 }
 
-button {
-    background: black;
+.menu__element:hover {
+    position: relative;
+    cursor: pointer;
+    top: 10px;
+    background: url(../assets/images/pug-running.gif) 120% no-repeat;
 }
 
 @media screen and (max-width: 720px) {
@@ -53,14 +61,6 @@ button {
 
     .menu__list {
         font-size: var(--small-font-size);
-    }
-
-}
-
-@media screen and (max-height: 320px) {
-
-    .menu__element {
-        margin-top: 20px;
     }
 
 }
