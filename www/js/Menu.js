@@ -35,6 +35,6 @@ class Menu {
 
     playNewGame = () => {
         let game = new Game(this.assetsLoader);
-        game.start();
+        game.play();
     }
 }

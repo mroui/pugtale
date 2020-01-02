@@ -2,15 +2,27 @@ class Game {
 
     constructor(assetsLoader) {
         this.assetsLoader = assetsLoader;
-
-        this.canvas = document.getElementById("canvas");
-        this.ctx = this.canvas.getContext('2d')
-
+        this.render = new Render();
+        this.pug = null;
         this.objects = [];
     }
 
-    start = () => {
+    play = () => {
         this.closeMenu();
+        this.prepare();
+        this.render.start(this.objects);
+    }
+
+    prepare = () => {
+        this.initObjects();
+        //init moving listeneners
+        //init gestures
+        //init everything to render start
+    }
+
+    initObjects = () => {
+        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 48, 48, 0, 0, 48, 48);
+        this.objects.push(this.pug);
     }
 
     closeMenu = () => {
