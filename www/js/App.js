@@ -1,12 +1,19 @@
 class App {
 
-    // Application Constructor
+    constructor() {
+        this.assetsLoader = null;
+    }
+
+    // Add device ready listener
     initialize = () => {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     }
 
-    // deviceready Event Handler
+    // assets loading & deviceready Event Handler
     onDeviceReady = () => {
+        this.assetsLoader = new AssetsLoader();
+        this.assetsLoader.init(this);
+
         this.receivedEvent('deviceready');
     }
 
@@ -18,13 +25,16 @@ class App {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+    }
 
+    //Get callback assets loaded to start an app
+    assetsLoaded = () => {
         this.start();
     }
 
     //Start menu app
     start = () => {
-        let menu = new Menu();
+        let menu = new Menu(this.assetsLoader);
         menu.playMenuMusic();
     }
 
