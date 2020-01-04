@@ -1,5 +1,5 @@
 canvas {
-    background: white;
+    background: black;
     visibility: hidden;
     opacity: 0;
     transition: opacity .5s ease-in-out;
