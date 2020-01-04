@@ -1,18 +1,19 @@
 class Render {
 
-    constructor()  {
-        this.canvas = document.getElementById("canvas");
+    constructor(canvas)  {
+        this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
 
         this.objects = [];
+        this.tileSize = 48;
 
         window.addEventListener('resize', this.resizeCanvas, false);
         this.resizeCanvas();
     }
 
     resizeCanvas = () => {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        this.canvas.width = Math.floor(window.innerWidth / this.tileSize) * this.tileSize;
+        this.canvas.height = Math.floor(window.innerHeight / this.tileSize) * this.tileSize;
         this.render();
     }
 
@@ -23,9 +24,9 @@ class Render {
     }
 
     draw = object => {
-        this.context.drawImage(object.getAsset(), object.getSX(), object.getSY(),
-                               object.getSWidth(), object.getSHeight(), object.getDX(),
-                               object.getDY(), object.getDWidth(), object.getDHeight());
+        this.context.drawImage(object.getAsset(), object.getXA(), object.getYA(),
+                               object.getW(), object.getH(), object.getX(),
+                               object.getY(), object.getW(), object.getH());
     }
 
     checkCollision = () => {
