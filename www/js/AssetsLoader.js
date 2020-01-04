@@ -6,8 +6,9 @@ class AssetsLoader {
     }
 
     init = device => {
-        this.loadImage("PUG", getUrl("assets/images/pug.png"));
         this.loadSound("MENU", getUrl("assets/sounds/menu.wav"), true, true);
+        this.loadImage("SAVE_AREA", getUrl("assets/images/SAVE_AREA.png"));
+        this.loadImage("PUG", getUrl("assets/images/PUG.png"));
         this.promise(device);
     }
 
