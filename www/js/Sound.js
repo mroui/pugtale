@@ -3,7 +3,10 @@ class Sound {
     constructor(sound) {
         this.sound = sound
 
-        if (device.model == "Chrome") this.isMute = true;
+        if (device.model == "Chrome") {
+            this.isMute = true;
+            this.mute(true);
+        }
         else this.isMute = false;
     }
 
@@ -14,6 +17,10 @@ class Sound {
 
     play = () => {
         this.sound.play();
+    }
+
+    stop = () => {
+        this.sound.stop();
     }
 
     getIsMute = () => {

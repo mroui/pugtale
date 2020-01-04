@@ -31,6 +31,16 @@ class Menu {
     setListeners = () => {
         document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
         document.getElementById("menu-play").addEventListener("click", this.playNewGame);
+        document.addEventListener("pause", this.muteOnBackground, false);
+        document.addEventListener("resume", this.muteOnForeground, false);
+    }
+
+    muteOnBackground = () => {
+        this.sound.stop();
+    }
+
+    muteOnForeground = () => {
+        this.sound.play();
     }
 
     playNewGame = () => {
