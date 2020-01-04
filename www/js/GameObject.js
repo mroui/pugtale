@@ -1,53 +1,40 @@
 class GameObject {
 
-    constructor(asset, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
+    constructor(asset, xa, ya, x, y, w, h) {
         this.asset = asset;
-        this.sx = sx;
-        this.sy = sy;
-        this.sWidth = sWidth;
-        this.sHeight = sHeight;
-        this.dx = dx;
-        this.dy = dy;
-        this.dWidth = dWidth;
-        this.dHeight = dHeight;
+        this.x = x;
+        this.y = y
+        this.xAsset = xa;
+        this.yAsset = ya;
+        this.width = w;
+        this.height = h;
     }
 
     getAsset = () => {
         return this.asset;
     }
 
-    getDX = () => {
-        return this.dx;
+    getX = () => {
+        return this.x;
     }
 
-    getDY = () => {
-        return this.dy;
+    getY = () => {
+        return this.y;
     }
 
-    getSX = () => {
-        return this.sx;
+    getXA = () => {
+        return this.xAsset;
     }
 
-    getSY = () => {
-        return this.sy;
+    getYA = () => {
+        return this.yAsset;
     }
 
-    getDWidth = () => {
-        return this.dWidth;
+    getW = () => {
+        return this.width;
     }
 
-    getDHeight = () => {
-        return this.dHeight;
+    getH = () => {
+        return this.height;
     }
-
-
-    getSWidth = () => {
-        return this.sWidth;
-    }
-
-    getSHeight = () => {
-        return this.sHeight;
-    }
-
-
 }
