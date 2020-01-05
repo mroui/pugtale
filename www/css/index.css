@@ -24,7 +24,7 @@ body {
     height: 100vh;
     margin: 0px;
     padding: 0px;
-    background-color:var(--bcg-color);
+    background: var(--bcg-color);
     font-family: var(--main-font);
     text-align: center;
     overflow: hidden;
@@ -50,6 +50,7 @@ body {
 
 .event.received {
     display: none;
+    background: black;
 }
 
 @keyframes         fade { from { opacity: 1.0; } 50% { opacity: 0.4; } to { opacity: 1.0; } }
