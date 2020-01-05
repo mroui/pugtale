@@ -1,7 +1,7 @@
 class SaveArea extends Biome {
 
-    constructor(asset, h, level) {
-        super(asset, h, level);
+    constructor(asset, canvas, tileW, tileH, filledTiles, level) {
+        super(asset, canvas, tileW, tileH, filledTiles, level);
     }
 
 }
