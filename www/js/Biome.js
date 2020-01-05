@@ -4,6 +4,8 @@ class Biome {
         this.tiles = [];    //array of biome background
         this.objects = [];  //array of biome objects
 
+        this.canvas = canvas;
+
         this.asset = asset;
         this.tileW = tileW;
         this.tileH = tileH;

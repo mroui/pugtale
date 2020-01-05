@@ -12,6 +12,7 @@ class AssetsLoader {
         this.loadImage("CAR3", getUrl("assets/images/CAR3.png"));
         this.loadImage("TRUCK1", getUrl("assets/images/TRUCK1.png"));
         this.loadImage("TRUCK2", getUrl("assets/images/TRUCK2.png"));
+        this.loadImage("DONUT", getUrl("assets/images/DONUT.png"));
         this.loadImage("SAVE_AREA", getUrl("assets/images/SAVE_AREA.png"));
         this.loadImage("RIVER", getUrl("assets/images/RIVER.png"));
         this.loadImage("SKY", getUrl("assets/images/SKY.png"));
