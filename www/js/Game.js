@@ -12,15 +12,9 @@ class Game {
 
     play = () => {
         this.closeMenu();
-        this.prepare();
-        this.render.start(this.objects);
-    }
-
-    prepare = () => {
         this.initObjects();
-        //init moving listeneners
-        //init gestures
-        //init everything to render start
+        this.render.init(this.objects, this.world, this.pug);
+        this.render.start();
     }
 
     initObjects = () => {

@@ -4,11 +4,21 @@ class Render {
         this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
 
+        this.world = null;
+        this.pug = null;
         this.objects = [];
+
         this.tileSize = 48;
 
+        this.setListeners();
+    }
+
+    setListeners = () => {
         window.addEventListener('resize', this.resizeCanvas, false);
         this.resizeCanvas();
+        //init moving listeneners
+        //init gestures
+        //init everything to render start
     }
 
     resizeCanvas = () => {
@@ -37,12 +47,18 @@ class Render {
         //check if game end
     }
 
-    start = objects => {
+    init = (objects, world, pug) => {
         this.objects = objects;
+        this.world = world;
+        this.pug = pug;
+    }
+
+    start = () => {
         this.render();
         //this.checkCollision();
         //this.checkStatus();
-        //requestAnimationFrame
+        //rerender more world / objects
+        requestAnimationFrame(this.start);
     }
 
 }
