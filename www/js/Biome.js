@@ -61,8 +61,12 @@ class Biome {
         return content;
     }
 
-    getTileCountW = () => {
+    getTilesCountW = () => {
         return this.tilesCountW;
+    }
+
+    getTilesCountH = () => {
+        return this.tilesCountH;
     }
 
     addObjects = objects => {

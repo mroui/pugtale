@@ -14,14 +14,12 @@ class Street extends Biome {
 
         this.activeTileX = filledTiles * this.tileW;
 
-        this.initVehicles();
+        this.initObjects();
     }
 
-    initVehicles = () => {
+    initObjects = () => {
         //for every traffic lane - 3 tiles->2cars
-        let lanesCount = Math.ceil(this.getTileCountW()/2);
-
-        console.log("lanes count" + lanesCount);
+        let lanesCount = Math.ceil(this.getTilesCountW()/2);
 
         for (let i = 0; i < lanesCount; i++) {
             let ifCar = rand(0, 1);
@@ -37,13 +35,13 @@ class Street extends Biome {
     }
 
     initTrucks = () => {
-        let min = 1 + this.level;
-        let max = 2 + this.level;
+        let min = this.getTilesCountH() - 2;
+        let max = this.getTilesCountH() + 2;
         let trucksCount = rand(min, max);
 
         for (let j = 0; j < trucksCount; j++) {
             let asset = this.randAsset("TRUCKS");
-            let truck = new GameObject(asset, 0, 0, this.vehicleW, this.vehicleH, this.activeTileX, -this.vehicleH, this.vehicleW, this.vehicleH);
+            let truck = new GameObject(asset, 0, 0, this.vehicleW, this.vehicleH, this.activeTileX, this.canvas.height, this.vehicleW, this.vehicleH);
             this.trucks.push(truck);
         }
     }

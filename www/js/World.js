@@ -45,7 +45,7 @@ class World {
             biome = new Sky(this.assetsLoader, this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
             break;
         }
-        this.filledTiles += biome.getTileCountW();
+        this.filledTiles += biome.getTilesCountW();
         this.biomes.push(biome);
     }
 
