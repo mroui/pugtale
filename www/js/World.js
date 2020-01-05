@@ -15,13 +15,16 @@ class World {
     }
 
     init = () => {
+        let prevId = null;
+
         this.addBiome(0);
         while (this.filledTiles < this.tilesCountW) {
             const id = this.rand(1, 3);
-            this.addBiome(id);
-
-            const ifSaveArea = this.rand(0, 1);
-            if (ifSaveArea) this.addBiome(0);
+            if (id !== prevId) {
+                prevId = id;
+                this.addBiome(id);
+                if (this.biomes.length % this.level == 0) this.addBiome(0);
+            }
         }
     }
 

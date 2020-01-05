@@ -19,8 +19,8 @@ class Biome {
         let max, min;
 
         if (this instanceof SaveArea) {
-            max = 8 - level;
-            min = 6 - level;
+            max = 4;
+            min = 2;
         }
         else {
             max = level + 2;
