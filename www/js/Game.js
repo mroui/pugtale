@@ -20,9 +20,9 @@ class Game {
     initObjects = () => {
         this.world = new World(this.assetsLoader, this.canvas);
         this.world.biomes.forEach(biome => {
-            this.objects = this.objects.concat(biome.getBiome());
+            this.objects = this.objects.concat(biome.getBiomeContent());
         });
-        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 0, 0, 48, 48);
+        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 48, 48, 0, 0, 48, 48);
         this.objects.push(this.pug);
     }
 

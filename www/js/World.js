@@ -19,7 +19,7 @@ class World {
 
         this.addBiome(0);
         while (this.filledTiles < this.tilesCountW) {
-            const id = this.rand(1, 3);
+            const id = rand(1, 3);
             if (id !== prevId) {
                 prevId = id;
                 this.addBiome(id);
@@ -33,16 +33,16 @@ class World {
 
         switch (id) {
         case 0:
-            biome = new SaveArea(this.assetsLoader.get("SAVE_AREA"), this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
+            biome = new SaveArea(this.assetsLoader, this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
             break;
         case 1:
-            biome = new River(this.assetsLoader.get("RIVER"), this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
+            biome = new River(this.assetsLoader, this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
             break;
         case 2:
-            biome = new Street(this.assetsLoader.get("STREET"), this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
+            biome = new Street(this.assetsLoader, this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
             break;
         case 3:
-            biome = new Sky(this.assetsLoader.get("SKY"), this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
+            biome = new Sky(this.assetsLoader, this.canvas, this.tileW, this.tileH, this.filledTiles, this.level);
             break;
         }
         this.filledTiles += biome.getTileCountW();
@@ -51,10 +51,6 @@ class World {
 
     levelUp = () => {
         this.level++;
-    }
-
-    rand = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
 }

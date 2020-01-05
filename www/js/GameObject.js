@@ -1,13 +1,15 @@
 class GameObject {
 
-    constructor(asset, xa, ya, x, y, w, h) {
+    constructor(asset, xa, ya, aw, ah, x, y, w, h) {
         this.asset = asset;
         this.x = x;
         this.y = y
-        this.xAsset = xa;
-        this.yAsset = ya;
-        this.width = w;
-        this.height = h;
+        this.xa = xa;
+        this.ya = ya;
+        this.aw = aw;
+        this.ah = ah;
+        this.w = w;
+        this.h = h;
     }
 
     getAsset = () => {
@@ -23,18 +25,26 @@ class GameObject {
     }
 
     getXA = () => {
-        return this.xAsset;
+        return this.xa;
     }
 
     getYA = () => {
-        return this.yAsset;
+        return this.ya;
+    }
+
+    getAW = () => {
+        return this.aw;
+    }
+
+    getAH = () => {
+        return this.ah;
     }
 
     getW = () => {
-        return this.width;
+        return this.w;
     }
 
     getH = () => {
-        return this.height;
+        return this.h;
     }
 }

@@ -1,7 +1,7 @@
 class River extends Biome {
 
-    constructor(asset, canvas, tileW, tileH, filledTiles, level) {
-        super(asset, canvas, tileW, tileH, filledTiles, level);
+    constructor(assetsLoader, canvas, tileW, tileH, filledTiles, level) {
+        super(assetsLoader.get("RIVER"), canvas, tileW, tileH, filledTiles, level);
     }
 
 }

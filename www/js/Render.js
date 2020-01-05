@@ -35,7 +35,7 @@ class Render {
 
     draw = object => {
         this.context.drawImage(object.getAsset(), object.getXA(), object.getYA(),
-                               object.getW(), object.getH(), object.getX(),
+                               object.getAW(), object.getAH(), object.getX(),
                                object.getY(), object.getW(), object.getH());
     }
 

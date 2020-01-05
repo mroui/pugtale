@@ -1,7 +1,8 @@
 class Biome {
 
     constructor(asset, canvas, tileW, tileH, filledTiles, level) {
-        this.tiles = [];    //array of tiles game objects
+        this.tiles = [];    //array of biome background
+        this.objects = [];  //array of biome objects
 
         this.asset = asset;
         this.tileW = tileW;
@@ -27,7 +28,7 @@ class Biome {
             min = level + 1;
         }
 
-        this.tilesCountW = Math.floor(Math.random() * (max - min + 1)) + min;
+        this.tilesCountW = rand(min, max);
     }
 
     setTiles = () => {
@@ -38,7 +39,7 @@ class Biome {
 
             for (let w = 0; w < this.tilesCountW; w++, tileX += this.tileW) {
 
-                let tile = new GameObject(this.asset, tileAssetX, tileAssetY, tileX, tileY, this.tileW, this.tileH);
+                let tile = new GameObject(this.asset, tileAssetX, tileAssetY, this.tileW, this.tileH, tileX, tileY, this.tileW, this.tileH);
                 this.tiles.push(tile);
 
                 if (w == 0 || w == this.tilesCountW - 2) tileAssetX += this.tileW;
@@ -53,12 +54,17 @@ class Biome {
         }
     }
 
-    getBiome = () => {
-        return this.tiles;
+    getBiomeContent = () => {
+        let content = this.tiles.concat(this.objects);
+        return content;
     }
 
     getTileCountW = () => {
         return this.tilesCountW;
+    }
+
+    addObjects = objects => {
+        this.objects = this.objects.concat(objects);
     }
 
 }

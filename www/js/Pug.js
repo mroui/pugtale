@@ -1,7 +1,7 @@
 class Pug extends GameObject {
 
-    constructor(asset, x, y, xa, ya, w, h) {
-        super(asset, x, y, xa, ya, w, h);
+    constructor(asset, xal, yal, aw, ah, x, y, w, h) {
+        super(asset, xal, yal, aw, ah, x, y, w, h);
     }
 
 }
