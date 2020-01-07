@@ -3,14 +3,16 @@ class World {
     constructor(assetsLoader, canvas) {
         this.assetsLoader = assetsLoader;
         this.canvas = canvas;
-        this.level = 1;  //how hard world is, firstly 1
+
+        this.level = 1;
 
         this.tileW = 48;
         this.tileH = 48;
         this.tilesCountW = this.canvas.width / this.tileW;
         this.filledTiles = 0;
 
-        this.biomes = [];    //array of biomes: river, street...
+        this.biomes = [];
+
         this.init();
     }
 

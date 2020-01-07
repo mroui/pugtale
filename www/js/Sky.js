@@ -9,8 +9,7 @@ class Sky extends Biome {
         this.clouds = [];
 
         this.cloudW = tileW;
-        this.cloudH = 0
-        this.direction = 0;
+        this.cloudH = 0;
 
         this.activeTileX = filledTiles * tileW;
 
@@ -19,21 +18,24 @@ class Sky extends Biome {
 
     initObjects = () => {
         for (let i = 0; i < this.getTilesCountW(); i++) {
-            this.randDirection();
-            this.initClouds();
+            let direction;
+            if (rand(0, 1)) direction = -3 * this.tileH;
+            else direction = this.canvas.height;
+
+            this.initClouds(direction);
             this.addObjects(this.clouds);
             this.activeTileX += this.tileW;
         }
     }
 
-    initClouds = () => {
+    initClouds = direction => {
         let min = this.getTilesCountH() - 2;
         let max = this.getTilesCountH() + 2;
         let cloudsCount = rand(min, max);
 
         for (let j = 0; j < cloudsCount; j++) {
             let asset = this.randAsset();
-            let cloud = new GameObject(asset, 0, 0, this.cloudW, this.cloudH, this.activeTileX, this.direction, this.cloudW, this.cloudH);
+            let cloud = new GameObject(asset, 0, 0, this.cloudW, this.cloudH, this.activeTileX, direction, this.cloudW, this.cloudH);
             this.clouds.push(cloud);
         }
     }
@@ -48,12 +50,6 @@ class Sky extends Biome {
                     this.cloudH = 3 * this.tileH;
                     return this.assetsLoader.get("CLOUD2");
             }
-    }
-
-    randDirection = () => {
-        let isFromUp = rand(0, 1);
-        if (isFromUp) this.direction = -3 * this.tileH; //at least by the largest h of asset
-        else this.direction = this.canvas.height;
     }
 
 }
