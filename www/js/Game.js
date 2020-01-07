@@ -2,28 +2,21 @@ class Game {
 
     constructor(assetsLoader) {
         this.canvas = document.getElementById("canvas");
-
         this.assetsLoader = assetsLoader;
-        this.render = new Render(this.canvas);
+        this.render = this.render = new Render(this.canvas, this.assetsLoader);
         this.world = null;
-        this.pug = null;
-        this.objects = [];
     }
 
     play = () => {
         this.closeMenu();
-        this.initObjects();
-        this.render.init(this.objects, this.world, this.pug);
+        this.initWorld();
+        this.render.init(this.world);
+        this.render.startObjects();
         this.render.start();
     }
 
-    initObjects = () => {
+    initWorld = () => {
         this.world = new World(this.assetsLoader, this.canvas);
-        this.world.biomes.forEach(biome => {
-            this.objects = this.objects.concat(biome.getBiomeContent());
-        });
-        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 48, 48, 0, 0, 48, 48);
-        this.objects.push(this.pug);
     }
 
     closeMenu = () => {
