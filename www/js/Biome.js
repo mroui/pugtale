@@ -74,14 +74,16 @@ class Biome {
         this.objects = this.objects.concat(objects);
     }
 
-    addObject = object => {
-        this.objects.push(object);
-    }
-
     getObjects = () => {
         return this.objects;
     }
 
+    setDirection = () => {}
+
     spawnObjects = () => {}
+
+    initObjects = () => {}
+
+    randDelay = () => {}
 
 }
