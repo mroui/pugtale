@@ -97,6 +97,17 @@ class GameObject {
         return this.delay;
     }
 
-    updateState = () => {}
+    updateState = () => {
+        requestAnimationFrame(this.updateState);
+        if (this.startY < 0) {
+            this.y += 1;
+            if (this.y == this.canvas.height)
+                this.stop();
+        } else {
+            this.y -= 1;
+            if (this.y == -this.h)
+                this.stop();
+        }
+    }
 
 }
