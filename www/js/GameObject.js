@@ -1,6 +1,6 @@
 class GameObject {
 
-    constructor(asset, xa, ya, aw, ah, x, y, w, h, renderSpeed = null, delay = 0) {
+    constructor(asset, xa, ya, aw, ah, x, y, w, h, animation = false, delay = 0) {
         this.asset = asset;
         this.x = x;
         this.y = y
@@ -15,8 +15,7 @@ class GameObject {
         this.canvas = document.getElementById('canvas');
 
         this.isDisplayed = false;
-        this.interval = null;
-        this.renderSpeed = renderSpeed;
+        this.animation = animation;
         this.delay = delay;
         this.toRemove = false;
     }
@@ -66,22 +65,18 @@ class GameObject {
     }
 
     start = () => {
-        let startUpdateStateInterval = () => {
-            this.interval = setInterval(this.updateState, this.renderSpeed);
+        let startUpdateState = () => {
+            this.updateState();
             this.isDisplayed = true;
         }
-        if ((this.renderSpeed !== null) && (this.interval === null)) {
-            setTimeout(startUpdateStateInterval, this.delay);
-        } else if (this.renderSpeed === null) {
+        if (this.animation) {
+            setTimeout(startUpdateState, this.delay);
+        } else if (!this.animation) {
             this.isDisplayed = true;
         }
     }
 
     stop = () => {
-        if (this.interval !== null) {
-            clearInterval(this.interval);
-            this.interval = null;
-        }
         this.isDisplayed = false;
         this.toRemove = true;
     }
@@ -94,9 +89,6 @@ class GameObject {
         return this.toRemove;
     }
 
-    updateState = () => {
-    }
-
     setDelay = delay => {
         this.delay = delay;
     }
@@ -104,5 +96,7 @@ class GameObject {
     getDelay = () => {
         return this.delay;
     }
+
+    updateState = () => {}
 
 }

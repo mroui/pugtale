@@ -5,6 +5,7 @@ class Donut extends GameObject {
     }
 
     updateState = () => {
+        requestAnimationFrame(this.updateState);
         if (this.startY < 0) {
             this.y += 1;
             if (this.y == this.canvas.height)
