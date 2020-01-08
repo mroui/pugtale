@@ -7,11 +7,8 @@ class River extends Biome{
 
         this.donutW = tileW;
         this.donutH = tileH;
-
-        this.delay = 0;
-        this.renderSpeed = 20;
-
         this.direction = -this.donutH;
+        this.delay = 0;
 
         this.initObjects();
     }
@@ -19,12 +16,8 @@ class River extends Biome{
     initObjects = () => {
         for (let i = 0; i < this.getTilesCountW(); i++) {
 
-            let min = 6 - this.level;
-            let max = 8 - this.level;
-            if (min == 0) {
-                min = 2;
-                max = 5;
-            }
+            let min = Math.floor(this.getTilesCountH() / 3);
+            let max = Math.ceil(this.getTilesCountH() / 4) + 2;
 
             let objectsCount = rand(min, max);
             let direction = this.setDirection();
@@ -46,13 +39,13 @@ class River extends Biome{
 
     spawnObject = (direction, activeTileX) => {
         this.randDelay();
-        let donut = new Donut(this.assetsLoader.get("DONUT"), 0, 0, this.donutW, this.donutH, activeTileX, direction,       this.donutW, this.donutH, this.renderSpeed, this.delay);
+        let donut = new Donut(this.assetsLoader.get("DONUT"), 0, 0, this.donutW, this.donutH, activeTileX, direction,       this.donutW, this.donutH, true, this.delay);
         return donut;
     }
 
     randDelay = () => {
-        let min = 1500;
-        let max = 3000;
+        let min = 750;
+        let max = 2000;
         this.delay += rand(min, max);
     }
 
