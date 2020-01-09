@@ -31,36 +31,40 @@ class Street extends Biome {
         }
     }
 
-    initTrucks = () => {
-        let min = Math.floor(this.getTilesCountH() / 3);
-        let max = Math.ceil(this.getTilesCountH() / 4) + 2;
-
-        let objectsCount = rand(min, max);
-        let direction = this.setDirection();
-
-        for (let j = 0; j < objectsCount; j++) {
-            this.randAsset("TRUCKS");
-            this.randDelay(1500, 2500);
-            let object = this.spawnObject(direction, this.activeTileX);
-            this.objects.push(object);
-        }
-    }
-
     spawnObject = (direction, activeTileX) => {
         let object = new GameObject(this.asset, 0, 0, this.vehicleW, this.vehicleH, activeTileX, direction, this.vehicleW, this.vehicleH, true, this.delay);
         return object;
     }
 
     initCars = () => {
-        let min = Math.floor(this.getTilesCountH() / 3);
-        let max = Math.ceil(this.getTilesCountH() / 4) + 2;
+        let min = Math.ceil(this.getTilesCountH() / 5) - 1;
+        let max = Math.floor(this.getTilesCountH() / 6) + 1;
+        if (min <= 0) min = 1;
+        if (max <= 0) max = 1;
 
         let objectsCount = rand(min, max);
         let direction = this.setDirection();
 
         for (let j = 0; j < objectsCount; j++) {
             this.randAsset("CARS");
-            this.randDelay(1300, 1300);
+            this.randDelay(1600, 5000);
+            let object = this.spawnObject(direction, this.activeTileX);
+            this.objects.push(object);
+        }
+    }
+
+    initTrucks = () => {
+        let min = Math.floor(this.getTilesCountH() / 6) - 1;
+        let max = Math.floor(this.getTilesCountH() / 6);
+        if (min <= 0) min = 1;
+        if (max <= 0) max = 1;
+
+        let objectsCount = rand(min, max);
+        let direction = this.setDirection();
+
+        this.randAsset("TRUCKS");
+        for (let j = 0; j < objectsCount; j++) {
+            this.randDelay(3250, 6000);
             let object = this.spawnObject(direction, this.activeTileX);
             this.objects.push(object);
         }
@@ -103,7 +107,6 @@ class Street extends Biome {
         }
     }
 
-    //TODO: MODIFY MIN/MAX FOR CARS/TRUCKS -> ANOTHER ON PHONE
     randDelay = (min, max) => {
         this.delay += rand(min, max);
     }
