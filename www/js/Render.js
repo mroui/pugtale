@@ -64,6 +64,11 @@ class Render {
 
     rerenderPassedObject = (indexBiome, removeObject) => {
         let newObject = this.biomes[indexBiome].spawnObject(removeObject.getStartY(), removeObject.getX());
+        newObject.setAsset(removeObject.getAsset());
+        newObject.setAW(removeObject.getAW());
+        newObject.setAH(removeObject.getAH());
+        newObject.setW(removeObject.getW());
+        newObject.setH(removeObject.getH());
         newObject.setDelay(0);
         newObject.start();
         return newObject;

@@ -24,6 +24,10 @@ class GameObject {
         return this.asset;
     }
 
+    setAsset = asset => {
+        this.asset = asset;
+    }
+
     getX = () => {
         return this.x;
     }
@@ -40,24 +44,48 @@ class GameObject {
         return this.xa;
     }
 
+    setXA = xa => {
+        this.xa = xa;
+    }
+
     getYA = () => {
         return this.ya;
+    }
+
+    setYA = ya => {
+        this.ya = ya;
     }
 
     getAW = () => {
         return this.aw;
     }
 
+    setAW = aw => {
+        this.aw = aw;
+    }
+
     getAH = () => {
         return this.ah;
+    }
+
+    setAH = ah => {
+        this.ah = ah;
     }
 
     getW = () => {
         return this.w;
     }
 
+    setW = w => {
+        this.w = w;
+    }
+
     getH = () => {
         return this.h;
+    }
+
+    setH = h => {
+        this.h = h;
     }
 
     getStartY = () => {
