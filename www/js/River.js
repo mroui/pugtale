@@ -38,7 +38,8 @@ class River extends Biome{
     }
 
     spawnObject = (direction, activeTileX) => {
-        this.randDelay();
+        if (this.isFirstObject) this.isFirstObject = false;
+        else this.randDelay();
         let object = new GameObject(this.assetsLoader.get("DONUT"), 0, 0, this.donutW, this.donutH, activeTileX, direction, this.donutW, this.donutH, true, this.delay);
         return object;
     }

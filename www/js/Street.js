@@ -47,7 +47,8 @@ class Street extends Biome {
 
         for (let j = 0; j < objectsCount; j++) {
             this.randAsset("CARS");
-            this.randDelay(1600, 5000);
+            if (this.isFirstObject) this.isFirstObject = false;
+            else this.randDelay(1600, 5000);
             let object = this.spawnObject(direction, this.activeTileX);
             this.objects.push(object);
         }
@@ -64,7 +65,8 @@ class Street extends Biome {
 
         this.randAsset("TRUCKS");
         for (let j = 0; j < objectsCount; j++) {
-            this.randDelay(3250, 6000);
+            if (this.isFirstObject) this.isFirstObject = false;
+            else this.randDelay(3250, 6000);
             let object = this.spawnObject(direction, this.activeTileX);
             this.objects.push(object);
         }

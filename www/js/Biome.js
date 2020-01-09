@@ -10,6 +10,7 @@ class Biome {
 
         this.tiles = [];
         this.objects = [];
+        this.isFirstObject = true;
 
         this.tilesCountH = canvas.height / this.tileH;
         this.tilesCountW = 0;
