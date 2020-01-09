@@ -6,7 +6,7 @@ class AssetsLoader {
     }
 
     init = device => {
-        this.loadSound("MENU", getUrl("assets/sounds/menu.wav"), true, true);
+        this.loadSound("MENU", getUrl("assets/sounds/menu.wav"), false, true);
         this.loadImage("CAR1", getUrl("assets/images/CAR1.png"));
         this.loadImage("CAR2", getUrl("assets/images/CAR2.png"));
         this.loadImage("CAR3", getUrl("assets/images/CAR3.png"));
