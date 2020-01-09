@@ -7,6 +7,8 @@ class Street extends Biome {
 
         this.vehicleW = 2 * tileW;
         this.vehicleH = 0;
+        this.assetX = 0;
+        this.assetY = 0;
         this.direction = -4 * tileH;
         this.delay = 0;
         this.asset = null;
@@ -27,12 +29,14 @@ class Street extends Biome {
             }
 
             this.delay = 0;
+            this.assetX = 0;
+            this.isFirstObject = true;
             this.activeTileX += this.tileW;
         }
     }
 
     spawnObject = (direction, activeTileX) => {
-        let object = new GameObject(this.asset, 0, 0, this.vehicleW, this.vehicleH, activeTileX, direction, this.vehicleW, this.vehicleH, true, this.delay);
+        let object = new GameObject(this.asset, this.assetX, this.assetY, this.vehicleW, this.vehicleH, activeTileX, direction, this.vehicleW, this.vehicleH, true, this.delay);
         return object;
     }
 
@@ -44,6 +48,7 @@ class Street extends Biome {
 
         let objectsCount = rand(min, max);
         let direction = this.setDirection();
+        if (direction > 0) this.rotateAsset();
 
         for (let j = 0; j < objectsCount; j++) {
             this.randAsset("CARS");
@@ -62,8 +67,9 @@ class Street extends Biome {
 
         let objectsCount = rand(min, max);
         let direction = this.setDirection();
-
+        if (direction > 0) this.rotateAsset();
         this.randAsset("TRUCKS");
+
         for (let j = 0; j < objectsCount; j++) {
             if (this.isFirstObject) this.isFirstObject = false;
             else this.randDelay(3250, 6000);
@@ -107,6 +113,10 @@ class Street extends Biome {
                 break;
             }
         }
+    }
+
+    rotateAsset = () => {
+        this.assetX += this.vehicleW;
     }
 
     randDelay = (min, max) => {

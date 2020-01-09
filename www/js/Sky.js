@@ -28,6 +28,7 @@ class Sky extends Biome {
             }
 
             this.delay = 0;
+            this.isFirstObject = true;
             this.activeTileX += this.tileW;
         }
     }

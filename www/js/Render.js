@@ -67,6 +67,8 @@ class Render {
         newObject.setAsset(removeObject.getAsset());
         newObject.setAW(removeObject.getAW());
         newObject.setAH(removeObject.getAH());
+        newObject.setXA(removeObject.getXA());
+        newObject.setYA(removeObject.getYA());
         newObject.setW(removeObject.getW());
         newObject.setH(removeObject.getH());
         newObject.setDelay(0);
