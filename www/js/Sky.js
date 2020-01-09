@@ -18,6 +18,8 @@ class Sky extends Biome {
 
             let min = Math.floor(this.getTilesCountH() / 3);
             let max = Math.ceil(this.getTilesCountH() / 4) + 2;
+            if (min <= 0) min = 1;
+            if (max <= 0) max = 1;
 
             let objectsCount = rand(min, max);
             let direction = this.setDirection();
