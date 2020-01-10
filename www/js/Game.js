@@ -10,7 +10,8 @@ class Game {
     constructor(assetsLoader) {
         this.canvas = document.getElementById("canvas");
         this.assetsLoader = assetsLoader;
-        this.render = this.render = new Render(this.canvas, this.assetsLoader);
+        this.hammer = new Hammer(this.canvas);
+        this.render = new Render(this.canvas, this.assetsLoader, this.hammer);
         this.world = null;
     }
 

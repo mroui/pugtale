@@ -1,9 +1,10 @@
 class Render {
 
-    constructor(canvas, assetsLoader)  {
+    constructor(canvas, assetsLoader, hammer)  {
         this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
         this.assetsLoader = assetsLoader;
+        this.hammer = hammer;
 
         this.world = null;
         this.biomes = [];
@@ -34,10 +35,17 @@ class Render {
         });
         document.addEventListener('keyup', e => this.keysCurrentlyPressed.delete(e.keyCode));
 
+        this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        this.hammer.on("swipeleft", e => { e.preventDefault(); this.pug.setDirection(LEFT); });
+        this.hammer.on("swiperight", e => { e.preventDefault(); this.pug.setDirection(RIGHT); });
+        this.hammer.on("swipeup", e => { e.preventDefault(); this.pug.setDirection(UP); });
+        this.hammer.on("swipedown", e => { e.preventDefault(); this.pug.setDirection(DOWN); });
+
         this.resizeCanvas();
-        //init moving listeneners
-        //init gestures
-        //init everything to render start
+    }
+
+    moveHandler = e => {
+        console.log(e);
     }
 
     resizeCanvas = () => {
