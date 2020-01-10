@@ -11,11 +11,29 @@ class Render {
 
         this.tileSize = 48;
 
+        this.keysCurrentlyPressed = new Set();
+
         this.setListeners();
     }
 
     setListeners = () => {
         window.addEventListener('resize', this.resizeCanvas, false);
+
+        document.addEventListener('keydown', e => {
+            const key = e.keyCode || e.charCode;
+            if (this.keysCurrentlyPressed.has(key)) {
+                e.stopPropagation();
+                e.preventDefault();
+              } else {
+                this.keysCurrentlyPressed.add(key);
+                if (key === 37)      this.pug.setDirection(LEFT);
+                else if (key === 38) this.pug.setDirection(UP);
+                else if (key === 39) this.pug.setDirection(RIGHT);
+                else if (key === 40) this.pug.setDirection(DOWN);
+              }
+        });
+        document.addEventListener('keyup', e => this.keysCurrentlyPressed.delete(e.keyCode));
+
         this.resizeCanvas();
         //init moving listeneners
         //init gestures
@@ -95,7 +113,7 @@ class Render {
         this.world.biomes.forEach(biome => {
             this.biomes = this.biomes.concat(biome);
         });
-        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 48, 48, 0, 0, 48, 48);
+        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 48, 48, 0, 0, 48, 48, true, 0);
     }
 
     startObjects = () => {
