@@ -21,7 +21,7 @@ class Pug extends GameObject {
         this.direction = null;
         this.passedDistance = 0;
         this.speed = 4;
-        this.animationStarted = false;
+        this.animationToStart = true;
 
         this.setDirection(STOP);
     }
@@ -34,35 +34,38 @@ class Pug extends GameObject {
 
     updateState = () => {
         requestAnimationFrame(this.updateState);
-
+        console.log(this.canvas.height, this.canvas.width)
         if (this.direction != STOP && this.passedDistance < this.tileW) {
-
-            if (!this.animationStarted) {
-                this.startAnim();
-                this.animationStarted = true;
-            }
-
             switch (this.direction) {
             case UP:
-                this.y -= this.speed;
+                if (this.y-this.speed > 0) this.y -= this.speed;
+                else this.animationToStart = false;
                 break;
             case LEFT:
-                this.x -= this.speed;
+                if (this.x-this.speed > 0) this.x -= this.speed;
+                else this.animationToStart = false;
                 break;
             case DOWN:
-                this.y += this.speed;
+                if (this.y+this.speed < this.canvas.height-this.tileH) this.y += this.speed;
+                else this.animationToStart = false;
                 break;
             case RIGHT:
-                this.x += this.speed;
+                if (this.x+this.speed < this.canvas.width-this.tileW) this.x += this.speed;
+                else this.animationToStart = false;
                 break;
             }
+
             this.passedDistance += this.speed;
 
+            if (this.animationToStart) {
+                this.startAnim();
+                this.animationToStart = false;
+            }
         } else if (this.passedDistance >= this.tileW) {
             this.passedDistance = 0;
             this.direction = STOP;
             this.column = 0;
-            this.animationStarted = false;
+            this.animationToStart = true;
             this.stopAnim();
         }
     }
