@@ -18,6 +18,7 @@ class GameObject {
         this.animation = animation;
         this.delay = delay;
         this.toRemove = false;
+        this.animInterval = null;
     }
 
     getAsset = () => {
@@ -136,6 +137,17 @@ class GameObject {
             if (this.y == -this.h)
                 this.stop();
         }
+    }
+
+    updateAnimation = () => {}
+
+    startAnim = () => {
+        this.animInterval = setInterval(this.updateAnimation, 30);
+    }
+
+    stopAnim = () => {
+        clearInterval(this.animInterval);
+        this.animInterval = null;
     }
 
 }
