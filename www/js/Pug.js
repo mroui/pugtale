@@ -34,7 +34,6 @@ class Pug extends GameObject {
 
     updateState = () => {
         requestAnimationFrame(this.updateState);
-        console.log(this.canvas.height, this.canvas.width)
         if (this.direction != STOP && this.passedDistance < this.tileW) {
             switch (this.direction) {
             case UP:
