@@ -1,3 +1,10 @@
+
+const RIGHT = 0;
+const LEFT = 1;
+const UP = 2;
+const DOWN = 3;
+const STOP = 4;
+
 class Game {
 
     constructor(assetsLoader) {
