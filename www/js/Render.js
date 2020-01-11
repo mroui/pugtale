@@ -44,10 +44,6 @@ class Render {
         this.resizeCanvas();
     }
 
-    moveHandler = e => {
-        console.log(e);
-    }
-
     resizeCanvas = () => {
         this.canvas.width = Math.floor(window.innerWidth / this.tileSize) * this.tileSize;
         this.canvas.height = Math.floor(window.innerHeight / this.tileSize) * this.tileSize;
@@ -56,35 +52,18 @@ class Render {
 
     render = () => {
         if (this.biomes !== null && this.pug !== null) {
-
-            let arrayFromRemove = false, indexBiome = 0, index = 0;
-
-            this.biomes.forEach((biome, iB) => {
-
-                biome.getTiles().forEach((tile, iT) => {
-                    if (tile.getIsDisplayed()) this.draw(tile);
-                    else if (tile.getToRemove()) {arrayFromRemove = true; indexBiome = iB; index = iT;}
+            this.biomes.forEach(biome => {
+                biome.getTiles().forEach(tile => {
+                    if (tile.getIsDisplayed())
+                        this.draw(tile);
                 });
-                if (arrayFromRemove) {
-                    let removeObject = this.biomes[indexBiome].getTiles()[index];
-                    this.biomes[indexBiome].getTiles().splice(index, 1);
-                    this.biomes[indexBiome].getTiles().push(this.rerenderPassedObject(indexBiome, removeObject));
-                    arrayFromRemove = false;
-                }
-
-                biome.getObjects().forEach((object, iO) => {
-                    if (object.getIsDisplayed()) this.draw(object);
-                    else if (object.getToRemove()) {arrayFromRemove = true; indexBiome = iB; index = iO;}
+                biome.getObjects().forEach(object => {
+                    if (object.getIsDisplayed())
+                        this.draw(object);
                 });
-                if (arrayFromRemove) {
-                    let removeObject = this.biomes[indexBiome].getObjects()[index];
-                    this.biomes[indexBiome].getObjects().splice(index, 1);
-                    this.biomes[indexBiome].getObjects().push(this.rerenderPassedObject(indexBiome, removeObject));
-                    arrayFromRemove = false;
-                }
-
             });
-            if (this.pug.getIsDisplayed()) this.draw(this.pug);
+            if (this.pug.getIsDisplayed())
+                this.draw(this.pug);
         }
     }
 
@@ -113,7 +92,44 @@ class Render {
     }
 
     checkStatus = () => {
-        //check if game end
+        //moving when pug is in the middle of canvas
+        if (this.pug.getX() == this.canvas.width/2) {
+            this.biomes.forEach(biome => {
+                biome.getTiles().forEach(tile => {
+                    tile.setX(tile.getX()-this.tileSize);
+                    if (tile.getX() < 0) {
+                        tile.setIsDisplayed(false);
+                        tile.setToRespawn(false);
+                    }
+                });
+                biome.getObjects().forEach(object => {
+                    object.setX(object.getX()-this.tileSize);
+                    if (object.getX() < 0) {
+                        object.setIsDisplayed(false);
+                        object.setToRespawn(false);
+                    }
+                });
+            });
+            this.pug.setX(this.pug.getX()-this.tileSize);
+        }
+        //deleting & respawning
+        this.biomes.forEach((biome, indexBiome) => {
+            biome.getTiles().forEach((tile, index) => {
+                if(!tile.getIsDisplayed()){
+                    this.biomes[indexBiome].getTiles().splice(index, 1);
+
+                console.log("biome delete")
+                }
+            });
+            biome.getObjects().forEach((object, index) => {
+                let removeObject = this.biomes[indexBiome].getObjects()[index];
+                if (!object.getIsDisplayed()) {
+                    this.biomes[indexBiome].getObjects().splice(index, 1);
+                    if (object.getToRespawn())
+                        this.biomes[indexBiome].getObjects().push(this.rerenderPassedObject(indexBiome, removeObject));
+                }
+            });
+        });
     }
 
     init = (world) => {
@@ -139,7 +155,7 @@ class Render {
     start = () => {
         this.render();
         //this.checkCollision();
-        //this.checkStatus();
+        this.checkStatus();
         //rerender more world / objects
         requestAnimationFrame(this.start);
     }

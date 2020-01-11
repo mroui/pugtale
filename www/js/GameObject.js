@@ -14,10 +14,10 @@ class GameObject {
 
         this.canvas = document.getElementById('canvas');
 
-        this.isDisplayed = false;
+        this.isDisplayed = true;
         this.animation = animation;
         this.delay = delay;
-        this.toRemove = false;
+        this.toRespawn = false;
         this.animInterval = null;
     }
 
@@ -31,6 +31,10 @@ class GameObject {
 
     getX = () => {
         return this.x;
+    }
+
+    setX = x => {
+        this.x = x;
     }
 
     getY = () => {
@@ -107,15 +111,23 @@ class GameObject {
 
     stop = () => {
         this.isDisplayed = false;
-        this.toRemove = true;
+        this.toRespawn = true;
     }
 
     getIsDisplayed = () => {
         return this.isDisplayed;
     }
 
-    getToRemove = () => {
-        return this.toRemove;
+    setIsDisplayed = isDisplayed => {
+        this.isDisplayed = isDisplayed;
+    }
+
+    getToRespawn = () => {
+        return this.toRespawn;
+    }
+
+    setToRespawn = toRespawn => {
+        this.toRespawn = toRespawn;
     }
 
     setDelay = delay => {
