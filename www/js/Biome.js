@@ -26,7 +26,7 @@ class Biome {
 
         if (this instanceof SaveArea) {
             min = 2;
-            max = 4;
+            max = 3;
         }
         else {
             min = level + 1;
