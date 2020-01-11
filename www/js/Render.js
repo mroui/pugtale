@@ -94,6 +94,14 @@ class Render {
     checkStatus = () => {
         this.checkMoveWorld();
         this.checkRemoveRespawn();
+        this.checkRespawnWorld();
+    }
+
+    checkRespawnWorld = () => {
+        let lastTileX = this.biomes[this.biomes.length-1].getTiles()[this.biomes[this.biomes.length-1].getTiles().length-1].getX();
+        if (lastTileX >= this.canvas.width-this.tileSize && lastTileX <= this.canvas.width+(2*this.tileSize)) {
+            this.biomes.push(this.world.spawnBiome(this.biomes));
+        }
     }
 
     checkMoveWorld = () => {
@@ -114,6 +122,7 @@ class Render {
                     }
                 });
             });
+            this.world.filledTiles -= 1;
             this.pug.setX(this.pug.getX()-this.tileSize);
         }
     }
