@@ -13,21 +13,42 @@ class World {
 
         this.biomes = [];
 
+        this.prevBiome = null;
+
         this.init();
     }
 
     init = () => {
-        let prevId = null;
-
-        this.addBiome(0);
+        this.biomes.push(this.addBiome(0));
         while (this.filledTiles < this.tilesCountW) {
             const id = rand(1, 3);
-            if (id !== prevId) {
-                prevId = id;
-                this.addBiome(id);
-                if (this.biomes.length % this.level == 0) this.addBiome(0);
+            if (id !== this.prevBiome) {
+                this.prevBiome = id;
+                this.biomes.push(this.addBiome(id));
+                if (this.biomes.length % this.level == 0) {
+                    this.biomes.push(this.addBiome(0));
+                    this.prevBiome = 0;
+                }
             }
         }
+    }
+
+    spawnBiome = biomes => {
+        let newBiome = null;
+
+        if (this.prevBiome!=0 && biomes.length % this.level == 0) {
+            newBiome = this.addBiome(0);
+            this.prevBiome = 0;
+        }
+        else {
+            let id = this.prevBiome;
+            while (id === this.prevBiome) id = rand(1, 3);
+            this.prevBiome = id;
+            newBiome = this.addBiome(id);
+        }
+        newBiome.getObjects().forEach(object => { object.start(); });
+        newBiome.getTiles().forEach(tile => { tile.start(); });
+        return newBiome;
     }
 
     addBiome = id => {
@@ -48,7 +69,7 @@ class World {
             break;
         }
         this.filledTiles += biome.getTilesCountW();
-        this.biomes.push(biome);
+        return biome;
     }
 
     levelUp = () => {
