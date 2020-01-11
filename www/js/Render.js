@@ -92,7 +92,11 @@ class Render {
     }
 
     checkStatus = () => {
-        //moving when pug is in the middle of canvas
+        this.checkMoveWorld();
+        this.checkRemoveRespawn();
+    }
+
+    checkMoveWorld = () => {
         if (this.pug.getX() == this.canvas.width/2) {
             this.biomes.forEach(biome => {
                 biome.getTiles().forEach(tile => {
@@ -112,14 +116,13 @@ class Render {
             });
             this.pug.setX(this.pug.getX()-this.tileSize);
         }
-        //deleting & respawning
+    }
+
+    checkRemoveRespawn = () => {
         this.biomes.forEach((biome, indexBiome) => {
             biome.getTiles().forEach((tile, index) => {
-                if(!tile.getIsDisplayed()){
+                if(!tile.getIsDisplayed())
                     this.biomes[indexBiome].getTiles().splice(index, 1);
-
-                console.log("biome delete")
-                }
             });
             biome.getObjects().forEach((object, index) => {
                 let removeObject = this.biomes[indexBiome].getObjects()[index];
