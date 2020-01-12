@@ -7,12 +7,13 @@ const STOP = 4;
 
 class Game {
 
-    constructor(assetsLoader) {
+    constructor(assetsLoader, playerNickname) {
         this.canvas = document.getElementById("canvas");
         this.assetsLoader = assetsLoader;
         this.hammer = new Hammer(this.canvas);
         this.render = new Render(this.canvas, this.assetsLoader, this.hammer);
         this.world = null;
+        this.player = new Player(playerNickname);
     }
 
     play = () => {

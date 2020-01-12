@@ -30,7 +30,7 @@ class Menu {
 
     setListeners = () => {
         document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
-        document.getElementById("menu-play").addEventListener("click", this.playNewGame);
+        document.getElementById("menu-play").addEventListener("click", this.openNickDialog);
         document.addEventListener("pause", this.muteOnBackground, false);
         document.addEventListener("resume", this.muteOnForeground, false);
     }
@@ -43,8 +43,24 @@ class Menu {
         this.sound.play();
     }
 
-    playNewGame = () => {
-        let game = new Game(this.assetsLoader);
+    openNickDialog = () => {
+        const nickname = "player" + Math.floor(new Date().getTime() + "" + Math.random()*(999));
+        navigator.notification.prompt(
+            'Please enter your nickname',
+            this.onPrompt,
+            'Registration',
+            ['Done','Cancel'],
+            nickname
+        );
+    }
+
+    onPrompt = results => {
+        if (results.buttonIndex == 1) this.playNewGame(results.input1);
+        else return;
+    }
+
+    playNewGame = playerNickname => {
+        let game = new Game(this.assetsLoader, playerNickname);
         game.play();
     }
 }
