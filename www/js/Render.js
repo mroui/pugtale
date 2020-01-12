@@ -3,6 +3,12 @@ class Render {
     constructor(canvas, assetsLoader, hammer)  {
         this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
+
+        this.objectsCanvas = document.createElement('canvas');
+        this.objectsCanvas.width = this.canvas.width;
+        this.objectsCanvas.height = this.canvas.height;
+        this.objectsContext = this.objectsCanvas.getContext('2d');
+
         this.assetsLoader = assetsLoader;
         this.hammer = hammer;
 
@@ -47,6 +53,9 @@ class Render {
     resizeCanvas = () => {
         this.canvas.width = Math.floor(window.innerWidth / this.tileSize) * this.tileSize;
         this.canvas.height = Math.floor(window.innerHeight / this.tileSize) * this.tileSize;
+        this.objectsCanvas.width = this.canvas.width;
+        this.objectsCanvas.height = this.canvas.height;
+
         this.render();
     }
 
@@ -55,15 +64,16 @@ class Render {
             this.biomes.forEach(biome => {
                 biome.getTiles().forEach(tile => {
                     if (tile.getIsDisplayed())
-                        this.draw(tile);
+                        this.draw(tile, this.context);
                 });
                 biome.getObjects().forEach(object => {
                     if (object.getIsDisplayed())
-                        this.draw(object);
+                        this.draw(object, this.objectsContext);
                 });
             });
             if (this.pug.getIsDisplayed())
-                this.draw(this.pug);
+                this.draw(this.pug, this.objectsContext);
+            this.context.drawImage(this.objectsCanvas, 0, 0);
         }
     }
 
@@ -81,17 +91,23 @@ class Render {
         return newObject;
     }
 
-    draw = object => {
-        this.context.drawImage(object.getAsset(), object.getXA(), object.getYA(),
+    draw = (object, context) => {
+        context.drawImage(object.getAsset(), object.getXA(), object.getYA(),
             object.getAW(), object.getAH(), object.getX(),
             object.getY(), object.getW(), object.getH());
     }
 
     checkCollision = () => {
-        //check if collision
+        this.biomes.forEach(biome => {
+            biome.getObjects().forEach(object => {
+                if (this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), this.objectsContext)) {
+                    console.log("collision")
+                }
+            });
+        });
     }
 
-    checkStatus = () => {
+    checkStatuses = () => {
         this.checkMoveWorld();
         this.checkRemoveRespawn();
         this.checkRespawnWorld();
@@ -165,10 +181,10 @@ class Render {
     }
 
     start = () => {
+        this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
         this.render();
-        //this.checkCollision();
-        this.checkStatus();
-        //rerender more world / objects
+        this.checkCollision();
+        this.checkStatuses();
         requestAnimationFrame(this.start);
     }
 
