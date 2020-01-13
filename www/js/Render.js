@@ -135,17 +135,25 @@ class Render {
         this.biomes.forEach(biome => {
             biome.getObjects().forEach(object => {
                 if (this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), this.objectsContext)) {
-                    this.pug.setCollisionSensibility(false);
-                    this.pug.startHitAnim();
-                    if (!this.soundsMute) this.pug.hitSound.play();
-                    if(this.pug.getDirection() === RIGHT && this.pug.getX() !== 0) {
-                        this.pug.setX(this.pug.getX() - this.pug.getW());
-                    } else if (this.pug.getDirection() === LEFT) {
-                        this.pug.setX(this.pug.getX() + this.pug.getW());
-                    }
+                    this.initCollision();
                 }
             });
         });
+    }
+
+    initCollision = () => {
+        this.pug.setCollisionSensibility(false);
+        this.pug.startHitAnim();
+
+        navigator.vibrate([1000]);
+
+        if (!this.soundsMute) this.pug.hitSound.play();
+
+        if(this.pug.getDirection() === RIGHT && this.pug.getX() !== 0) {
+            this.pug.setX(this.pug.getX() - this.pug.getW());
+        } else if (this.pug.getDirection() === LEFT) {
+            this.pug.setX(this.pug.getX() + this.pug.getW());
+        }
     }
 
     checkStatuses = () => {
