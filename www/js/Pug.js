@@ -30,7 +30,21 @@ class Pug extends GameObject {
         this.hitSound = new Sound(this.assetsLoader.get("HIT"));
         this.jumpSound = new Sound(this.assetsLoader.get("JUMP"));
 
+        this.hearts = 3;
+
         this.setDirection(STOP);
+    }
+
+    looseHeart = () => {
+        this.hearts--;
+    }
+
+    getHeartsAsset = () => {
+        return this.assetsLoader.get("HEARTS" + this.hearts);
+    }
+
+    getHeartObject = () => {
+        return new GameObject(this.getHeartsAsset(), 0, 0, 58, 17, 0, 0, 58, 17);
     }
 
     setDirection = direction => {

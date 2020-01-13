@@ -21,6 +21,10 @@ class AssetsLoader {
         this.loadImage("RIVER", getUrl("assets/images/RIVER.png"));
         this.loadImage("SKY", getUrl("assets/images/SKY.png"));
         this.loadImage("STREET", getUrl("assets/images/STREET.png"));
+        this.loadImage("HEARTS0", getUrl("assets/images/HEARTS0.png"));
+        this.loadImage("HEARTS1", getUrl("assets/images/HEARTS1.png"));
+        this.loadImage("HEARTS2", getUrl("assets/images/HEARTS2.png"));
+        this.loadImage("HEARTS3", getUrl("assets/images/HEARTS3.png"));
         this.loadImage("PUG", getUrl("assets/images/PUG.png"));
         this.promise(device);
     }
