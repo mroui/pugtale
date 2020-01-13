@@ -146,14 +146,14 @@ class Render {
         this.pug.setCollisionSensibility(false);
         this.pug.startHitAnim();
 
-        navigator.vibrate([1000]);
-
         if (!this.soundsMute) this.pug.hitSound.play();
 
-        if(this.pug.getDirection() === RIGHT && this.pug.getX() !== 0) {
-            this.pug.setX(this.pug.getX() - this.pug.getW());
-        } else if (this.pug.getDirection() === LEFT) {
+        navigator.vibrate([100]);
+
+        if (this.pug.getDirection() === LEFT) {
             this.pug.setX(this.pug.getX() + this.pug.getW());
+        } else if(this.pug.getX() !== 0) {
+            this.pug.setX(this.pug.getX() - this.pug.getW());
         }
     }
 
