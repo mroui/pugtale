@@ -3,6 +3,7 @@ class Menu {
     constructor(assetsLoader) {
         this.assetsLoader = assetsLoader;
         this.sound = null;
+        this.soundsMute = false;
         this.setListeners();
     }
 
@@ -21,10 +22,13 @@ class Menu {
         if (this.sound.getIsMute()) {
             document.getElementById("muteButton").classList.remove("fa-volume-up");
             document.getElementById("muteButton").classList.add("fa-volume-mute");
+            this.soundsMute = true;
+
         }
         else {
             document.getElementById("muteButton").classList.remove("fa-volume-mute");
             document.getElementById("muteButton").classList.add("fa-volume-up");
+            this.soundsMute = false;
         }
     }
 
@@ -60,7 +64,8 @@ class Menu {
     }
 
     playNewGame = playerNickname => {
-        let game = new Game(this.assetsLoader, playerNickname);
+        this.sound.stop();
+        let game = new Game(this.assetsLoader, this.soundsMute, playerNickname);
         game.play();
     }
 }

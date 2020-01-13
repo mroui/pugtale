@@ -1,12 +1,13 @@
 class Pug extends GameObject {
 
-    constructor(assetsLoader, xal, yal, aw, ah, x, y, w, h, a, d) {
+    constructor(assetsLoader, soundsMute, xal, yal, aw, ah, x, y, w, h, a, d) {
         super(assetsLoader.get("PUG"), xal, yal, aw, ah, x, y, w, h, a, d);
 
         this.tileW = w;
         this.tileH = h;
 
         this.assetsLoader = assetsLoader;
+        this.soundsMute = soundsMute;
         this.x = x;
         this.y = y;
         this.aw = this.tileW;
@@ -27,6 +28,7 @@ class Pug extends GameObject {
 
         this.collisionSensibility = true;
         this.hitSound = new Sound(this.assetsLoader.get("HIT"));
+        this.jumpSound = new Sound(this.assetsLoader.get("JUMP"));
 
         this.setDirection(STOP);
     }
@@ -63,6 +65,7 @@ class Pug extends GameObject {
 
             if (this.animationToStart) {
                 this.startAnim();
+                if (!this.soundsMute) this.jumpSound.play();
                 this.animationToStart = false;
             }
         } else if (this.passedDistance >= this.tileW) {

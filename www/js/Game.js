@@ -7,13 +7,15 @@ const STOP = 4;
 
 class Game {
 
-    constructor(assetsLoader, playerNickname) {
+    constructor(assetsLoader, soundsMute, playerNickname) {
         this.canvas = document.getElementById("canvas");
         this.assetsLoader = assetsLoader;
-        this.hammer = new Hammer(this.canvas);
-        this.render = new Render(this.canvas, this.assetsLoader, this.hammer);
-        this.world = null;
+        this.soundsMute = soundsMute;
         this.player = new Player(playerNickname);
+
+        this.hammer = new Hammer(this.canvas);
+        this.render = new Render(this.canvas, this.assetsLoader, this.soundsMute, this.hammer);
+        this.world = null;
     }
 
     play = () => {
