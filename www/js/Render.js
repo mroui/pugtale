@@ -108,8 +108,21 @@ class Render {
             if (this.pug.getIsDisplayed())
                 this.draw(this.pug, this.objectsContext);
             this.draw(this.pug.getHeartObject(), this.objectsContext);
+            this.drawScore();
             this.context.drawImage(this.objectsCanvas, 0, 0);
         }
+    }
+
+    drawScore = () => {
+        this.objectsContext.fillStyle = "black";
+        this.objectsContext.font = "32px Times Roman";
+        this.objectsContext.textAlign="right";
+        this.objectsContext.fillText(this.world.getPlayer().getScore(), this.canvas.width-8, 64);
+
+        this.objectsContext.fillStyle = "white";
+        this.objectsContext.font = "32px Times Roman";
+        this.objectsContext.textAlign="right";
+        this.objectsContext.fillText(this.world.getPlayer().getScore(), this.canvas.width-10, 62);
     }
 
     rerenderPassedObject = (indexBiome, removeObject) => {
@@ -158,9 +171,14 @@ class Render {
     }
 
     checkStatuses = () => {
+        this.checkScore();
         this.checkMoveWorld();
         this.checkRemoveRespawn();
         this.checkRespawnWorld();
+    }
+
+    checkScore = () => {
+        this.world.getPlayer().setScore(this.pug.getPassedWorld());
     }
 
     checkRespawnWorld = () => {

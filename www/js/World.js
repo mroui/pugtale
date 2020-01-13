@@ -1,8 +1,9 @@
 class World {
 
-    constructor(assetsLoader, canvas) {
+    constructor(assetsLoader, canvas, player) {
         this.assetsLoader = assetsLoader;
         this.canvas = canvas;
+        this.player = player;
 
         this.level = 1;
 
@@ -31,6 +32,10 @@ class World {
                 }
             }
         }
+    }
+
+    getPlayer = () => {
+        return this.player;
     }
 
     spawnBiome = biomes => {

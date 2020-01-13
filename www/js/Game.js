@@ -27,7 +27,7 @@ class Game {
     }
 
     initWorld = () => {
-        this.world = new World(this.assetsLoader, this.canvas);
+        this.world = new World(this.assetsLoader, this.canvas, this.player);
     }
 
     closeMenu = () => {

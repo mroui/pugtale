@@ -5,7 +5,15 @@ class Player {
         this.score = 0;
     }
 
-    addScore = points => {
+    getScore = () => {
+        return this.score;
+    }
+
+    setScore = score => {
+        this.score=score;
+    }
+
+    addToScore = points => {
         this.score+=points;
     }
 
