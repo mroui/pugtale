@@ -133,8 +133,13 @@ class Render {
     checkCollision = () => {
         this.biomes.forEach(biome => {
             biome.getObjects().forEach(object => {
-                if (this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), this.objectsContext)) {
-                    console.log("collision")
+                if (this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), this.objectsContext)) {
+                    this.pug.setCollisionSensibility(false);
+                    this.pug.startHitAnim();
+                    this.pug.hitSound.play();
+                    if(this.pug.getX() !== 0) {
+                        this.pug.setX(this.pug.getX() - this.pug.getW());
+                    }
                 }
             });
         });
@@ -198,7 +203,7 @@ class Render {
         this.world.biomes.forEach(biome => {
             this.biomes = this.biomes.concat(biome);
         });
-        this.pug = new Pug(this.assetsLoader.get("PUG"), 0, 0, 48, 48, 0, 0, 48, 48, true, 0);
+        this.pug = new Pug(this.assetsLoader, 0, 0, 48, 48, 0, 0, 48, 48, true, 0);
     }
 
     startObjects = () => {

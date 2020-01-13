@@ -1,12 +1,12 @@
 class Pug extends GameObject {
 
-    constructor(asset, xal, yal, aw, ah, x, y, w, h, a, d) {
-        super(asset, xal, yal, aw, ah, x, y, w, h, a, d);
+    constructor(assetsLoader, xal, yal, aw, ah, x, y, w, h, a, d) {
+        super(assetsLoader.get("PUG"), xal, yal, aw, ah, x, y, w, h, a, d);
 
         this.tileW = w;
         this.tileH = h;
 
-        this.asset = asset;
+        this.assetsLoader = assetsLoader;
         this.x = x;
         this.y = y;
         this.aw = this.tileW;
@@ -26,6 +26,7 @@ class Pug extends GameObject {
         this.hitAnimInterval = null;
 
         this.collisionSensibility = true;
+        this.hitSound = new Sound(this.assetsLoader.get("HIT"));
 
         this.setDirection(STOP);
     }
@@ -85,11 +86,12 @@ class Pug extends GameObject {
 
     startHitAnim = () => {
         this.hitAnimInterval = setInterval(this.updateHitAnimation, 250);
-        setTimeout(this.stopHitAnim, 3000);
+        setTimeout(this.stopHitAnim, 5000);
     }
 
     stopHitAnim = () => {
         this.isDisplayed = true;
+        this.collisionSensibility = true;
         clearInterval(this.hitAnimInterval);
         this.hitAnimInterval = null;
     }
@@ -97,6 +99,14 @@ class Pug extends GameObject {
     updateHitAnimation = () => {
         if (this.isDisplayed) this.isDisplayed = false;
         else this.isDisplayed = true;
+    }
+
+    getCollisionSensibility = () => {
+        return this.collisionSensibility;
+    }
+
+    setCollisionSensibility = collisionSensibility => {
+        this.collisionSensibility = collisionSensibility;
     }
 
 }
