@@ -1,6 +1,6 @@
 class GameObject {
 
-    constructor(asset, xa, ya, aw, ah, x, y, w, h, animation = false, delay = 0) {
+    constructor(asset, xa, ya, aw, ah, x, y, w, h, animation = false, delay = 0, type="") {
         this.asset = asset;
         this.x = x;
         this.y = y
@@ -11,6 +11,7 @@ class GameObject {
         this.w = w;
         this.h = h;
         this.startY = y;
+        this.type = type;
 
         this.canvas = document.getElementById('canvas');
 
@@ -95,6 +96,10 @@ class GameObject {
 
     getStartY = () => {
         return this.startY;
+    }
+
+    getType = () => {
+        return this.type;
     }
 
     start = () => {

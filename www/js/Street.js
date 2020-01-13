@@ -36,7 +36,7 @@ class Street extends Biome {
     }
 
     spawnObject = (direction, activeTileX) => {
-        let object = new GameObject(this.asset, this.assetX, this.assetY, this.vehicleW, this.vehicleH, activeTileX, direction, this.vehicleW, this.vehicleH, true, this.delay);
+        let object = new GameObject(this.asset, this.assetX, this.assetY, this.vehicleW, this.vehicleH, activeTileX, direction, this.vehicleW, this.vehicleH, true, this.delay, "STREET");
         return object;
     }
 

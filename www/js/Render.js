@@ -149,13 +149,21 @@ class Render {
         this.biomes.forEach(biome => {
             biome.getObjects().forEach(object => {
                 if (this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), this.objectsContext)) {
-                    this.initCollision();
+                    switch(object.getType()) {
+                        case "RIVER":
+                            return;
+                        case "SKY":
+                            return;
+                        case "STREET":
+                            this.initCarCollision();
+                            return;
+                    }
                 }
             });
         });
     }
 
-    initCollision = () => {
+    initCarCollision = () => {
         this.pug.setCollisionSensibility(false);
         this.pug.startHitAnim();
 

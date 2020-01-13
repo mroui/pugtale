@@ -39,7 +39,7 @@ class Sky extends Biome {
         if (this.isFirstObject) this.isFirstObject = false;
         else this.randDelay();
         let asset = this.randAsset();
-        let object = new GameObject(asset, 0, 0, this.cloudW, this.cloudH, activeTileX, direction, this.cloudW, this.cloudH, true, this.delay);
+        let object = new GameObject(asset, 0, 0, this.cloudW, this.cloudH, activeTileX, direction, this.cloudW, this.cloudH, true, this.delay, "SKY");
         return object;
     }
 
