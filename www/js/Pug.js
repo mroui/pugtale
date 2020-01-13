@@ -23,6 +23,10 @@ class Pug extends GameObject {
         this.speed = 4;
         this.animationToStart = true;
 
+        this.hitAnimInterval = null;
+
+        this.collisionSensibility = true;
+
         this.setDirection(STOP);
     }
 
@@ -77,6 +81,22 @@ class Pug extends GameObject {
         }
         this.xa = this.column * this.tileW;
         this.ya = this.row * this.tileW;
+    }
+
+    startHitAnim = () => {
+        this.hitAnimInterval = setInterval(this.updateHitAnimation, 250);
+        setTimeout(this.stopHitAnim, 3000);
+    }
+
+    stopHitAnim = () => {
+        this.isDisplayed = true;
+        clearInterval(this.hitAnimInterval);
+        this.hitAnimInterval = null;
+    }
+
+    updateHitAnimation = () => {
+        if (this.isDisplayed) this.isDisplayed = false;
+        else this.isDisplayed = true;
     }
 
 }
