@@ -15,6 +15,9 @@ class Pug extends GameObject {
         this.w = w;
         this.h = h;
 
+        this.passedWorld = 0;
+        this.passedWorldTemporary = 0;
+
         this.columnsCount = 5;
         this.rowsCount = 4;
         this.column = 0;
@@ -39,6 +42,19 @@ class Pug extends GameObject {
         this.hearts--;
     }
 
+    passWorld = () => {
+        if (this.direction == RIGHT) {
+            this.passedWorldTemporary++;
+        } else if (this.direction == LEFT) this.passedWorldTemporary--;
+
+        if (this.passedWorldTemporary > this.passedWorld)
+            this.passedWorld = this.passedWorldTemporary;
+    }
+
+    getPassedWorld = () => {
+        return this.passedWorld;
+    }
+
     getHeartsAsset = () => {
         return this.assetsLoader.get("HEARTS" + this.hearts);
     }
@@ -58,11 +74,11 @@ class Pug extends GameObject {
         if (this.direction != STOP && this.passedDistance < this.tileW) {
             switch (this.direction) {
             case UP:
-                if (this.y-this.speed > 0) this.y -= this.speed;
+                if (this.y-this.speed >= 0) this.y -= this.speed;
                 else this.animationToStart = false;
                 break;
             case LEFT:
-                if (this.x-this.speed > 0) this.x -= this.speed;
+                if (this.x-this.speed >= 0) this.x -= this.speed;
                 else this.animationToStart = false;
                 break;
             case DOWN:
@@ -83,6 +99,7 @@ class Pug extends GameObject {
                 this.animationToStart = false;
             }
         } else if (this.passedDistance >= this.tileW) {
+            this.passWorld();
             this.passedDistance = 0;
             this.direction = STOP;
             this.column = 0;
