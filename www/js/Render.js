@@ -37,9 +37,12 @@ class Render {
                 else if (key === 38) this.pug.setDirection(UP);
                 else if (key === 39) this.pug.setDirection(RIGHT);
                 else if (key === 40) this.pug.setDirection(DOWN);
+                else if (key === 27) this.onBackButton();
               }
         });
         document.addEventListener('keyup', e => this.keysCurrentlyPressed.delete(e.keyCode));
+
+        document.addEventListener("backbutton", this.onBackButton, false);
 
         this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
         this.hammer.on("swipeleft", e => { e.preventDefault(); this.pug.setDirection(LEFT); });
@@ -57,6 +60,37 @@ class Render {
         this.objectsCanvas.height = this.canvas.height;
 
         this.render();
+    }
+
+    onBackButton = e => {
+        e.preventDefault();
+        navigator.notification.confirm(
+            'Do you want to exit?',
+            this.onConfirmPrompt,
+            'Exit',
+            ['Ok','Cancel']
+        );
+    }
+
+    onConfirmPrompt = buttonIndex => {
+        if (buttonIndex == 1) {
+            this.clearGame();
+            document.getElementById("menu").style.opacity = "1";
+            document.getElementById("canvas").style.opacity = "0";
+            document.getElementById("canvas").style.visibility = "hidden";
+            document.getElementById("menu").style.visibility = "visible";
+        }
+        else return;
+    }
+
+    clearGame = () => {
+        this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas = null;
+        this.objectsCanvas = null;
+        this.world = null;
+        this.biomes = null;
+        this.pug = null;
     }
 
     render = () => {
