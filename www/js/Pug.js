@@ -44,7 +44,7 @@ class Pug extends GameObject {
     }
 
     getHeartObject = () => {
-        return new GameObject(this.getHeartsAsset(), 0, 0, 58, 17, 0, 0, 58, 17);
+        return new GameObject(this.getHeartsAsset(), 0, 0, 96, 48, this.canvas.width-48*2, 0, 96, 48);
     }
 
     setDirection = direction => {
