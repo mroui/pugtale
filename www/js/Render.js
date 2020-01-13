@@ -62,8 +62,7 @@ class Render {
         this.render();
     }
 
-    onBackButton = e => {
-        e.preventDefault();
+    onBackButton = () => {
         navigator.notification.confirm(
             'Do you want to exit?',
             this.onConfirmPrompt,
