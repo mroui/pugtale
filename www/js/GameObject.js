@@ -166,21 +166,21 @@ class GameObject {
     isBoxCollision = (x, y, w, h, context) => {
         if (this.x < x + w  && this.x + this.w  > x &&
             this.y < y + h && this.y + this.h > y) {
-            return this.isAlphaCollision(x, y, w, h, context);
+            return this.isAlphaCollision(context);
         }
         else return false;
     }
 
-    isAlphaCollision = (x, y, w, h, context) => {
-        let imageData = context.getImageData(this.x+(this.w/2), this.y+(this.h*0.1), 1, 1);
+    isAlphaCollision = (context) => {
+        let imageData = context.getImageData(this.x+(this.w/2), this.y+3, 1, 1);
         let dataTop = imageData.data;
-        imageData = context.getImageData(this.x+(this.w*0.9), this.y+(this.h/2), 1, 1);
+        imageData = context.getImageData(this.x+this.w-3, this.y+(this.h/2), 1, 1);
         let dataRight = imageData.data;
-        imageData = context.getImageData(this.x+(this.w/2), this.y+(this.h*0.9), 1, 1);
+        imageData = context.getImageData(this.x+(this.w/2), this.y+this.h-3, 1, 1);
         let dataBottom = imageData.data;
-        imageData = context.getImageData(this.x*0.9, this.y+(this.h/2), 1, 1);
+        imageData = context.getImageData(this.x+3, this.y+(this.h/2), 1, 1);
         let dataLeft = imageData.data;
-        if ((dataTop[3] !== 0) || (dataRight[3] !== 0) || (dataBottom[3] !== 0) || (dataLeft[3] !== 0)) {
+        if (dataTop[3] !== 0 || dataRight[3] !== 0 || dataBottom[3] !== 0 || dataLeft[3] !== 0) {
             return true;
         } else return false;
     }
