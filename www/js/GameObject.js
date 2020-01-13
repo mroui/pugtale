@@ -158,6 +158,7 @@ class GameObject {
     }
 
     stopAnim = () => {
+        this.column = 0;
         clearInterval(this.animInterval);
         this.animInterval = null;
     }
@@ -173,11 +174,11 @@ class GameObject {
     isAlphaCollision = (x, y, w, h, context) => {
         let imageData = context.getImageData(this.x+(this.w/2), this.y+(this.h*0.1), 1, 1);
         let dataTop = imageData.data;
-        imageData = context.getImageData(this.x+this.w, this.y+(this.h/2), 1, 1);
+        imageData = context.getImageData(this.x+(this.w*0.9), this.y+(this.h/2), 1, 1);
         let dataRight = imageData.data;
         imageData = context.getImageData(this.x+(this.w/2), this.y+(this.h*0.9), 1, 1);
         let dataBottom = imageData.data;
-        imageData = context.getImageData(this.x, this.y+(this.h/2), 1, 1);
+        imageData = context.getImageData(this.x*0.9, this.y+(this.h/2), 1, 1);
         let dataLeft = imageData.data;
         if ((dataTop[3] !== 0) || (dataRight[3] !== 0) || (dataBottom[3] !== 0) || (dataLeft[3] !== 0)) {
             return true;
