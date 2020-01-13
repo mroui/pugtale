@@ -138,8 +138,10 @@ class Render {
                     this.pug.setCollisionSensibility(false);
                     this.pug.startHitAnim();
                     if (!this.soundsMute) this.pug.hitSound.play();
-                    if(this.pug.getX() !== 0) {
+                    if(this.pug.getDirection() === RIGHT && this.pug.getX() !== 0) {
                         this.pug.setX(this.pug.getX() - this.pug.getW());
+                    } else if (this.pug.getDirection() === LEFT) {
+                        this.pug.setX(this.pug.getX() + this.pug.getW());
                     }
                 }
             });

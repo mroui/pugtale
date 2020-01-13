@@ -77,6 +77,10 @@ class Pug extends GameObject {
         }
     }
 
+    getDirection = () => {
+        return this.direction;
+    }
+
     updateAnimation = () => {
         this.column++;
         if (this.column == this.columnsCount-1) {
