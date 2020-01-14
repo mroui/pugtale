@@ -4,7 +4,7 @@
     <description>
         Little platform game with a pug (dog) as a main hero, who goes on an adventure.
     </description>
-    <author email="martynaxroj@gmail.com" href="http://mroui.github.io">
+    <author href="http://mroui.github.io">
         Martyna Rój
     </author>
     <content src="index.html" />
