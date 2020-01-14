@@ -13,6 +13,8 @@ class Render {
         this.soundsMute = soundsMute;
         this.hammer = hammer;
 
+        this.gameoverSound = new Sound(this.assetsLoader.get("GAMEOVER"));
+
         this.world = null;
         this.biomes = [];
         this.pug = null;
@@ -174,7 +176,7 @@ class Render {
 
     checkGameStatus = () => {
         if (this.pug.getHearts() === 0) {
-            console.log('gameover');
+            if (!this.soundsMute) this.gameoverSound.play();
             navigator.notification.alert(
                 'Your score: ' + this.world.getPlayer().getScore(),
                 () => {
