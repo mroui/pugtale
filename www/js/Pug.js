@@ -190,25 +190,11 @@ class Pug extends GameObject {
         this.collisionSensibility = collisionSensibility;
     }
 
-    initCollision = type => {
-
-        let sound = null;
-        switch(type) {
-            case "STREET":
-                sound = this.hitSound;
-                return;
-            case "RIVER":
-                sound = this.hitSound;
-                return;
-            case "SKY":
-                sound = this.hitSound;
-                return;
-        }
-
+    initCollision = () => {
         this.setCollisionSensibility(false);
         this.startHitAnim();
 
-        if (!this.soundsMute) sound.play();
+        if (!this.soundsMute) this.hitSound.play();
 
         navigator.vibrate([100]);
 
