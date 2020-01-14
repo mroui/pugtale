@@ -36,13 +36,24 @@ class Menu {
         document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
         document.getElementById("menu-play").addEventListener("click", this.openNickModal);
         document.getElementById("menu-credits").addEventListener("click", this.openCreditsModal);
+        document.getElementById("menu-highscores").addEventListener("click", this.openHighscoresModal);
         document.getElementById("credits-modal__close").addEventListener("click", this.hideCreditsModal);
+        document.getElementById("highscores-modal__close").addEventListener("click", this.hideHighscoresModal);
         window.onclick = (e) => {
             if (e.target == document.getElementById("credits-modal")) this.hideCreditsModal();
-          }
+            else if (e.target == document.getElementById("highscores-modal")) this.hideHighscoresModal();
+        }
 
         document.addEventListener("pause", this.muteOnBackground, false);
         document.addEventListener("resume", this.muteOnForeground, false);
+    }
+
+    hideHighscoresModal = () => {
+        document.getElementById("highscores-modal").style.display = "none";
+    }
+
+    openHighscoresModal = () => {
+        document.getElementById("highscores-modal").style.display = "flex";
     }
 
     hideCreditsModal = () => {
@@ -50,7 +61,7 @@ class Menu {
     }
 
     openCreditsModal = () => {
-        document.getElementById("credits-modal").style.display = "block";
+        document.getElementById("credits-modal").style.display = "flex";
     }
 
     muteOnBackground = () => {
