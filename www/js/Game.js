@@ -14,12 +14,13 @@ class Game {
         this.player = new Player(playerNickname);
 
         this.hammer = new Hammer(this.canvas);
-        this.render = new Render(this.canvas, this.assetsLoader, this.soundsMute, this.hammer);
+        this.render = null;
         this.world = null;
     }
 
     play = () => {
         this.closeMenu();
+        this.render = new Render(this.canvas, this.assetsLoader, this.soundsMute, this.hammer);
         this.initWorld();
         this.render.init(this.world);
         this.render.startObjects();

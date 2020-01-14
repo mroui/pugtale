@@ -86,11 +86,8 @@ class Render {
     clearGame = () => {
         this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.canvas = null;
-        this.objectsCanvas = null;
         this.world = null;
-        this.biomes = null;
-        this.pug = null;
+        this.biomes = [];
     }
 
     render = () => {
@@ -283,11 +280,13 @@ class Render {
     }
 
     start = () => {
-        this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
-        this.render();
-        this.checkCollision();
-        this.checkStatuses();
-        requestAnimationFrame(this.start);
+        if (this.world !== null) {
+            requestAnimationFrame(this.start);
+            this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
+            this.render();
+            this.checkCollision();
+            this.checkStatuses();
+        }
     }
 
 }
