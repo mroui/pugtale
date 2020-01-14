@@ -74,6 +74,10 @@ class Pug extends GameObject {
         return new GameObject(this.getHeartsAsset(), 0, 0, 96, 48, this.canvas.width-48*2, 0, 96, 48);
     }
 
+    getHearts = () => {
+        return this.hearts;
+    }
+
     setDirection = direction => {
         this.direction = direction;
         this.row = this.direction;
@@ -92,7 +96,6 @@ class Pug extends GameObject {
                 this.y--;
             } else this.checkAttachment();
         }
-
 
         if (this.direction != STOP && this.passedDistance < this.tileW) {
             switch (this.direction) {
@@ -197,6 +200,8 @@ class Pug extends GameObject {
         if (!this.soundsMute) this.hitSound.play();
 
         navigator.vibrate([100]);
+
+        this.hearts--;
 
         if (this.direction === LEFT) {
             this.x  += this.w;

@@ -66,13 +66,13 @@ class Render {
     onBackButton = () => {
         navigator.notification.confirm(
             'Do you want to exit?',
-            this.onConfirmPrompt,
+            this.onConfirmExit,
             'Exit',
             ['Ok','Cancel']
         );
     }
 
-    onConfirmPrompt = buttonIndex => {
+    onConfirmExit = buttonIndex => {
         if (buttonIndex == 1) {
             this.clearGame();
             document.getElementById("menu").style.opacity = "1";
@@ -172,16 +172,33 @@ class Render {
         this.checkRemoveRespawn();
         this.checkRespawnWorld();
         this.checkCurrentBiome();
+        this.checkGameStatus();
+    }
+
+    checkGameStatus = () => {
+        if (this.pug.getHearts() === 0) {
+            console.log('gameover');
+            navigator.notification.alert(
+                'Your score: ' + this.world.getPlayer().getScore(),
+                () => {
+                    this.clearGame();
+                    document.getElementById("menu").style.opacity = "1";
+                    document.getElementById("canvas").style.opacity = "0";
+                    document.getElementById("canvas").style.visibility = "hidden";
+                    document.getElementById("menu").style.visibility = "visible";
+                },
+                'Game Over!',
+                ['Ok']
+            );
+        }
     }
 
     checkCurrentBiome = () => {
-
         let currentBiome = this.biomes.filter((biome) => {
             if (biome.getTiles()[0] !== undefined)
                 return biome.getTiles()[0].getX() === this.pug.getX()
                 || biome.getTiles()[biome.getTiles().length-1].getX() === this.pug.getX();
         });
-
         if (currentBiome.length !== 0) {
             if (currentBiome[0] instanceof SaveArea)
                 this.pug.setCurrentBiome("SAVE_AREA");
