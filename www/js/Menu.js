@@ -34,9 +34,23 @@ class Menu {
 
     setListeners = () => {
         document.getElementById("muteButton").addEventListener("click", this.onclickMuteButton);
-        document.getElementById("menu-play").addEventListener("click", this.openNickDialog);
+        document.getElementById("menu-play").addEventListener("click", this.openNickModal);
+        document.getElementById("menu-credits").addEventListener("click", this.openCreditsModal);
+        document.getElementById("credits-modal__close").addEventListener("click", this.hideCreditsModal);
+        window.onclick = (e) => {
+            if (e.target == document.getElementById("credits-modal")) this.hideCreditsModal();
+          }
+
         document.addEventListener("pause", this.muteOnBackground, false);
         document.addEventListener("resume", this.muteOnForeground, false);
+    }
+
+    hideCreditsModal = () => {
+        document.getElementById("credits-modal").style.display = "none";
+    }
+
+    openCreditsModal = () => {
+        document.getElementById("credits-modal").style.display = "block";
     }
 
     muteOnBackground = () => {
@@ -47,18 +61,18 @@ class Menu {
         this.sound.play();
     }
 
-    openNickDialog = () => {
+    openNickModal = () => {
         const nickname = "player" + Math.floor(new Date().getTime() + "" + Math.random()*(999));
         navigator.notification.prompt(
             'Please enter your nickname',
-            this.onPrompt,
+            this.onNicknameConfirm,
             'Registration',
             ['Done','Cancel'],
             nickname
         );
     }
 
-    onPrompt = results => {
+    onNicknameConfirm = results => {
         if (results.buttonIndex == 1) this.playNewGame(results.input1);
         else return;
     }
