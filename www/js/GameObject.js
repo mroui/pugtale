@@ -168,12 +168,23 @@ class GameObject {
         this.animInterval = null;
     }
 
-    isBoxCollision = (x, y, w, h, context) => {
+    isBoxCollision = (x, y, w, h, type, context) => {
         if (this.x < x + w  && this.x + this.w  > x &&
             this.y < y + h && this.y + this.h > y) {
-            return this.isAlphaCollision(context);
+                if (type === "STREET")
+                    return this.isAlphaCollision(context);
+                else if (type === "RIVER" || type === "SKY")
+                    return this.isOnCenterCollision(x, y, w, h);
         }
         else return false;
+    }
+
+    isOnCenterCollision = (x, y, w, h) => {
+        let centerX = this.x + (this.w/2);
+        let centerY = this.y + (this.h/2);
+        if (centerX > x && centerX < x+w && centerY > y && centerY < y+h) {
+            return true;
+        } else return false;
     }
 
     isAlphaCollision = (context) => {

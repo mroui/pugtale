@@ -148,14 +148,17 @@ class Render {
     checkCollision = () => {
         this.biomes.forEach(biome => {
             biome.getObjects().forEach(object => {
-                if (this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), this.objectsContext)) {
+                if (this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), object.getType(), this.objectsContext)) {
                     switch(object.getType()) {
                         case "RIVER":
+                            this.pug.setAttachment(object);
                             return;
                         case "SKY":
+                            this.pug.setAttachment(object);
                             return;
                         case "STREET":
-                            this.initCarCollision();
+                            this.pug.setAttachment(null);
+                            this.pug.initCollision();
                             return;
                     }
                 }
@@ -163,26 +166,32 @@ class Render {
         });
     }
 
-    initCarCollision = () => {
-        this.pug.setCollisionSensibility(false);
-        this.pug.startHitAnim();
-
-        if (!this.soundsMute) this.pug.hitSound.play();
-
-        navigator.vibrate([100]);
-
-        if (this.pug.getDirection() === LEFT) {
-            this.pug.setX(this.pug.getX() + this.pug.getW());
-        } else if(this.pug.getX() !== 0) {
-            this.pug.setX(this.pug.getX() - this.pug.getW());
-        }
-    }
-
     checkStatuses = () => {
         this.checkScore();
         this.checkMoveWorld();
         this.checkRemoveRespawn();
         this.checkRespawnWorld();
+        this.checkCurrentBiome();
+    }
+
+    checkCurrentBiome = () => {
+
+        let currentBiome = this.biomes.filter((biome) => {
+            if (biome.getTiles()[0] !== undefined)
+                return biome.getTiles()[0].getX() === this.pug.getX()
+                || biome.getTiles()[biome.getTiles().length-1].getX() === this.pug.getX();
+        });
+
+        if (currentBiome.length !== 0) {
+            if (currentBiome[0] instanceof SaveArea)
+                this.pug.setCurrentBiome("SAVE_AREA");
+            else if (currentBiome[0] instanceof River)
+                this.pug.setCurrentBiome("RIVER");
+            else if (currentBiome[0] instanceof Sky)
+                this.pug.setCurrentBiome("SKY");
+            else if (currentBiome[0] instanceof Street)
+                this.pug.setCurrentBiome("STREET");
+        }
     }
 
     checkScore = () => {

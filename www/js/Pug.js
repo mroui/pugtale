@@ -30,6 +30,9 @@ class Pug extends GameObject {
         this.hitAnimInterval = null;
 
         this.collisionSensibility = true;
+        this.isAttachedTo = null;
+        this.currentBiome = null;
+
         this.hitSound = new Sound(this.assetsLoader.get("HIT"));
         this.jumpSound = new Sound(this.assetsLoader.get("JUMP"));
 
@@ -40,6 +43,14 @@ class Pug extends GameObject {
 
     looseHeart = () => {
         this.hearts--;
+    }
+
+    getCurrentBiome = () => {
+        return this.currentBiome;
+    }
+
+    setCurrentBiome = newBiome => {
+        this.currentBiome = newBiome;
     }
 
     passWorld = () => {
@@ -71,6 +82,18 @@ class Pug extends GameObject {
 
     updateState = () => {
         requestAnimationFrame(this.updateState);
+
+        if (this.direction === STOP && this.isAttachedTo !== null) {
+            if (this.isAttachedTo.getStartY() < 0) {
+                if (this.y+1 < this.canvas.height-this.tileH)
+                    this.y++;
+                else this.checkAttachment();
+            } else if (this.y-1 >= 0) {
+                this.y--;
+            } else this.checkAttachment();
+        }
+
+
         if (this.direction != STOP && this.passedDistance < this.tileW) {
             switch (this.direction) {
             case UP:
@@ -105,7 +128,27 @@ class Pug extends GameObject {
             this.column = 0;
             this.animationToStart = true;
             this.stopAnim();
+            this.checkAttachment();
         }
+    }
+
+    checkAttachment = () => {
+        if (this.isAttachedTo !== null) {
+            let x = this.isAttachedTo.getX();
+            let y = this.isAttachedTo.getY();
+            let w = this.isAttachedTo.getW();
+            let h = this.isAttachedTo.getH();
+            if (!this.isOnCenterCollision(x, y, w, h)){
+                this.setAttachment(null);
+                if (this.getCollisionSensibility() && (this.getCurrentBiome() === "RIVER" || this.getCurrentBiome() === "SKY"))
+                    this.initCollision();
+            }
+        } else if (this.getCollisionSensibility() && (this.getCurrentBiome() === "RIVER" || this.getCurrentBiome() === "SKY"))
+            this.initCollision();
+    }
+
+    setAttachment = attachment => {
+        this.isAttachedTo = attachment;
     }
 
     getDirection = () => {
@@ -124,7 +167,7 @@ class Pug extends GameObject {
 
     startHitAnim = () => {
         this.hitAnimInterval = setInterval(this.updateHitAnimation, 250);
-        setTimeout(this.stopHitAnim, 5000);
+        setTimeout(this.stopHitAnim, 3000);
     }
 
     stopHitAnim = () => {
@@ -145,6 +188,35 @@ class Pug extends GameObject {
 
     setCollisionSensibility = collisionSensibility => {
         this.collisionSensibility = collisionSensibility;
+    }
+
+    initCollision = type => {
+
+        let sound = null;
+        switch(type) {
+            case "STREET":
+                sound = this.hitSound;
+                return;
+            case "RIVER":
+                sound = this.hitSound;
+                return;
+            case "SKY":
+                sound = this.hitSound;
+                return;
+        }
+
+        this.setCollisionSensibility(false);
+        this.startHitAnim();
+
+        if (!this.soundsMute) sound.play();
+
+        navigator.vibrate([100]);
+
+        if (this.direction === LEFT) {
+            this.x  += this.w;
+        } else if(this.x !== 0) {
+            this.x  -= this.w;
+        }
     }
 
 }
