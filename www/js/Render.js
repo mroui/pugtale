@@ -32,7 +32,7 @@ class Render {
         document.addEventListener('keydown', this.keyListener);
         document.addEventListener('keyup', this.keyDeleteListener);
 
-        document.addEventListener("backbutton", this.onBackButton, false);
+        document.addEventListener("backbutton", this.openExitModal);
 
         this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
         this.hammer.on("swipeleft", e => { e.preventDefault(); this.pug.setDirection(LEFT); });
@@ -41,8 +41,10 @@ class Render {
         this.hammer.on("swipedown", e => { e.preventDefault(); this.pug.setDirection(DOWN); });
 
         document.getElementById("network-modal__close").addEventListener("click", this.hideNetworkModal);
+        document.getElementById("exit-modal__close").addEventListener("click", this.hideExitModal);
         window.onclick = (e) => {
             if (e.target == document.getElementById("network-modal")) this.hideNetworkModal();
+            else if (e.target == document.getElementById("exit-modal")) this.hideExitModal();
         }
 
         document.getElementById("restart-modal__yes-button").addEventListener("click", e => {
@@ -56,6 +58,12 @@ class Render {
             this.clearGame();
             this.returnToMenu();
         });
+        document.getElementById("exit-modal__yes-button").addEventListener("click", e => {
+            this.hideExitModal();
+            this.clearGame();
+            this.returnToMenu();
+        });
+        document.getElementById("exit-modal__no-button").addEventListener("click", this.hideExitModal);
 
         this.resizeCanvas();
     }
@@ -71,7 +79,7 @@ class Render {
             else if (key === 38) this.pug.setDirection(UP);
             else if (key === 39) this.pug.setDirection(RIGHT);
             else if (key === 40) this.pug.setDirection(DOWN);
-            else if (key === 27) this.onBackButton();
+            else if (key === 27) this.openExitModal();
         }
     }
 
@@ -83,7 +91,7 @@ class Render {
         document.removeEventListener('keydown', this.keyListener);
         document.removeEventListener('keyup', this.keyDeleteListener);
 
-        document.removeEventListener("backbutton", this.onBackButton, false);
+        document.removeEventListener("backbutton", this.openExitModal);
 
         let old_element = document.getElementById("network-modal__close");
         let new_element = old_element.cloneNode(true);
@@ -96,6 +104,12 @@ class Render {
         old_element = document.getElementById("restart-modal__no-button");
         new_element = old_element.cloneNode(true);
         old_element.parentNode.replaceChild(new_element, old_element);
+
+        old_element = document.getElementById("exit-modal__yes-button");
+        new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+
+        document.getElementById("exit-modal__no-button").removeEventListener("click", this.hideExitModal);
     }
 
     hideRestartModal = () => {
@@ -124,13 +138,12 @@ class Render {
         this.render();
     }
 
-    onBackButton = () => {
-        navigator.notification.confirm(
-            'Do you want to exit?',
-            this.onConfirmExit,
-            'Exit',
-            ['Ok','Cancel']
-        );
+    openExitModal = () => {
+        document.getElementById("exit-modal").style.display = "flex";
+    }
+
+    hideExitModal = () => {
+        document.getElementById("exit-modal").style.display = "none";
     }
 
     returnToMenu = () => {
