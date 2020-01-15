@@ -24,7 +24,7 @@ body {
     height: 100vh;
     margin: 0px;
     padding: 0px;
-    background: var(--bcg-color);
+    background: var(--main-color);
     font-family: var(--main-font);
     text-align: center;
     overflow: hidden;
@@ -89,7 +89,7 @@ body {
 canvas {
     width: 100%;
     height: 100vh;
-    background-color: var(--bcg-color);
+    background-color: var(--main-color);
 }
 
 #muteButton {
