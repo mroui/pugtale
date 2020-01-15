@@ -186,10 +186,14 @@ class Render {
             });
             if (this.pug.getIsDisplayed())
                 this.draw(this.pug, this.objectsContext);
-            this.draw(this.pug.getHeartObject(), this.objectsContext);
-            this.drawScore();
+            this.drawHud();
             this.context.drawImage(this.objectsCanvas, 0, 0);
         }
+    }
+
+    drawHud = () => {
+        this.draw(this.pug.getHeartObject(), this.objectsContext);
+        this.drawScore();
     }
 
     drawScore = () => {
