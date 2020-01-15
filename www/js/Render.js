@@ -52,8 +52,20 @@ class Render {
         this.hammer.on("swiperight", e => { e.preventDefault(); this.pug.setDirection(RIGHT); });
         this.hammer.on("swipeup", e => { e.preventDefault(); this.pug.setDirection(UP); });
         this.hammer.on("swipedown", e => { e.preventDefault(); this.pug.setDirection(DOWN); });
+        document.getElementById("network-modal__close").addEventListener("click", this.hideNetworkModal);
+        window.onclick = (e) => {
+            if (e.target == document.getElementById("network-modal")) this.hideNetworkModal();
+        }
 
         this.resizeCanvas();
+    }
+
+    hideNetworkModal = () => {
+        document.getElementById("network-modal").style.display = "none";
+    }
+
+    openNetworkModal = () => {
+        document.getElementById("network-modal").style.display = "flex";
     }
 
     resizeCanvas = () => {
@@ -176,19 +188,15 @@ class Render {
 
     checkGameStatus = () => {
         if (this.pug.getHearts() === 0) {
-            if (!this.soundsMute) this.gameoverSound.play();
-            navigator.notification.alert(
-                'Your score: ' + this.world.getPlayer().getScore(),
-                () => {
-                    this.clearGame();
-                    document.getElementById("menu").style.opacity = "1";
-                    document.getElementById("canvas").style.opacity = "0";
-                    document.getElementById("canvas").style.visibility = "hidden";
-                    document.getElementById("menu").style.visibility = "visible";
-                },
-                'Game Over!',
-                ['Ok']
-            );
+
+            if (!this.soundsMute)
+                this.gameoverSound.play();
+
+            if (!this.world.getPlayer().tryAddToDatabase())
+                this.openNetworkModal();
+
+            this.world = null;
+
         }
     }
 
