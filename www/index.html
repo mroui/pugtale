@@ -71,13 +71,24 @@
                     </div>
                 </div>
                 <div id="network-modal" class="modal">
-                    <div id="network__content" class="modal__content">
+                    <div id="network-modal__content" class="modal__content">
                         <span id="network-modal__close" class="modal__close">&times;</span>
                         <h3>Warning!</h3>
                         <p><strong>Check your network connection</strong></p>
                         <p>Network connection is needed to save the score.</p>
                         <p>Otherwise the results will be lost.</p>
                         <p><em>After changes restart the game.</em></p>
+                    </div>
+                </div>
+                <div id="restart-modal" class="modal">
+                    <div id="restart-modal__content" class="modal__content">
+                        <h3>Game Over!</h3>
+                        <p><strong id="restart-model-score">Your score: </strong></p>
+                        <p>Do you want to play again?</p>
+                        <div class="buttons">
+                            <div id="restart-modal__yes-button" class="button">Yes</div>
+                            <div id="restart-modal__no-button" class="button">No</div>
+                        </div>
                     </div>
                 </div>
                 <div id="menu" class="menu">

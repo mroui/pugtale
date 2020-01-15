@@ -19,7 +19,7 @@
 
 .modal__content>h3 {
     margin: 10px;
-    color: var(--bcg-color);
+    color: var(--main-color);
     font-size: 24px;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .highscores-table thead {
-    background: var(--bcg-color);
+    background: var(--main-color);
 }
 
 .highscores-table thead th {
@@ -68,4 +68,25 @@
 #network-modal {
     display: flex;
     z-index: 2;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.button {
+    width: 10%;
+    padding: 10px;
+    margin: 10px;
+    background: var(--main-color);
+    color: white;
+}
+
+.button:hover {
+    position: relative;
+    cursor: pointer;
+    top: 10px;
 }
