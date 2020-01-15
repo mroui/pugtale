@@ -35,6 +35,7 @@ class Pug extends GameObject {
 
         this.hitSound = new Sound(this.assetsLoader.get("HIT"));
         this.jumpSound = new Sound(this.assetsLoader.get("JUMP"));
+        this.collectSound = new Sound(this.assetsLoader.get("COLLECT"));
 
         this.hearts = 3;
         this.possibilityToLevelUp = true;
@@ -154,6 +155,7 @@ class Pug extends GameObject {
             let h = this.isAttachedTo.getH();
             if (!this.isOnCenterCollision(x, y, w, h)){
                 this.isAttachedTo.setIsDisplayed(false);
+                this.isAttachedTo.setToRespawn(true);
                 this.setAttachment(null);
                 if (this.getCollisionSensibility() && (this.getCurrentBiome() === "RIVER" || this.getCurrentBiome() === "SKY"))
                     this.initCollision();
