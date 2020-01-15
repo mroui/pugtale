@@ -6,6 +6,10 @@ class Player {
         this.prevScore = 0;
     }
 
+    getNickname = () => {
+        return this.nickname;
+    }
+
     getScore = () => {
         return this.score;
     }
