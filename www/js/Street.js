@@ -18,7 +18,7 @@ class Street extends Biome {
 
     initObjects = () => {
         //for every traffic lane - 3 tiles->2cars
-        let lanesCount = Math.ceil(this.getTilesCountW()/2);
+        let lanesCount = this.getTilesCountW()-1;
         for (let i = 0; i < lanesCount; i++) {
 
             let ifCar = rand(0, 1);
