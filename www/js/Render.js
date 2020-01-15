@@ -29,21 +29,8 @@ class Render {
     setListeners = () => {
         window.addEventListener('resize', this.resizeCanvas, false);
 
-        document.addEventListener('keydown', e => {
-            const key = e.keyCode || e.charCode;
-            if (this.keysCurrentlyPressed.has(key)) {
-                e.stopPropagation();
-                e.preventDefault();
-              } else {
-                this.keysCurrentlyPressed.add(key);
-                if (key === 37)      this.pug.setDirection(LEFT);
-                else if (key === 38) this.pug.setDirection(UP);
-                else if (key === 39) this.pug.setDirection(RIGHT);
-                else if (key === 40) this.pug.setDirection(DOWN);
-                else if (key === 27) this.onBackButton();
-              }
-        });
-        document.addEventListener('keyup', e => this.keysCurrentlyPressed.delete(e.keyCode));
+        document.addEventListener('keydown', this.keyListener);
+        document.addEventListener('keyup', this.keyDeleteListener);
 
         document.addEventListener("backbutton", this.onBackButton, false);
 
@@ -52,12 +39,71 @@ class Render {
         this.hammer.on("swiperight", e => { e.preventDefault(); this.pug.setDirection(RIGHT); });
         this.hammer.on("swipeup", e => { e.preventDefault(); this.pug.setDirection(UP); });
         this.hammer.on("swipedown", e => { e.preventDefault(); this.pug.setDirection(DOWN); });
+
         document.getElementById("network-modal__close").addEventListener("click", this.hideNetworkModal);
         window.onclick = (e) => {
             if (e.target == document.getElementById("network-modal")) this.hideNetworkModal();
         }
 
+        document.getElementById("restart-modal__yes-button").addEventListener("click", e => {
+            this.hideRestartModal();
+            this.clearGame();
+            let game = new Game(this.assetsLoader, this.soundsMute, this.playerNickname);
+            game.play();
+        });
+        document.getElementById("restart-modal__no-button").addEventListener("click", e => {
+            this.hideRestartModal();
+            this.clearGame();
+            this.returnToMenu();
+        });
+
         this.resizeCanvas();
+    }
+
+    keyListener = e => {
+        const key = e.keyCode || e.charCode;
+        if (this.keysCurrentlyPressed.has(key)) {
+            e.stopPropagation();
+            e.preventDefault();
+        } else {
+            this.keysCurrentlyPressed.add(key);
+            if (key === 37)      this.pug.setDirection(LEFT);
+            else if (key === 38) this.pug.setDirection(UP);
+            else if (key === 39) this.pug.setDirection(RIGHT);
+            else if (key === 40) this.pug.setDirection(DOWN);
+            else if (key === 27) this.onBackButton();
+        }
+    }
+
+    keyDeleteListener = e => {
+        this.keysCurrentlyPressed.delete(e.keyCode);
+    }
+
+    removeListeners = () => {
+        document.removeEventListener('keydown', this.keyListener);
+        document.removeEventListener('keyup', this.keyDeleteListener);
+
+        document.removeEventListener("backbutton", this.onBackButton, false);
+
+        let old_element = document.getElementById("network-modal__close");
+        let new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+
+        old_element = document.getElementById("restart-modal__yes-button");
+        new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+
+        old_element = document.getElementById("restart-modal__no-button");
+        new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+    }
+
+    hideRestartModal = () => {
+        document.getElementById("restart-modal").style.display = "none";
+    }
+
+    openRestartModal = () => {
+        document.getElementById("restart-modal").style.display = "flex";
     }
 
     hideNetworkModal = () => {
@@ -86,22 +132,30 @@ class Render {
         );
     }
 
+    returnToMenu = () => {
+        document.getElementById("menu").style.opacity = "1";
+        document.getElementById("canvas").style.opacity = "0";
+        document.getElementById("canvas").style.visibility = "hidden";
+        document.getElementById("menu").style.visibility = "visible";
+    }
+
     onConfirmExit = buttonIndex => {
-        if (buttonIndex == 1) {
-            this.clearGame();
-            document.getElementById("menu").style.opacity = "1";
-            document.getElementById("canvas").style.opacity = "0";
-            document.getElementById("canvas").style.visibility = "hidden";
-            document.getElementById("menu").style.visibility = "visible";
-        }
+        if (buttonIndex == 1)
+            this.returnToMenu();
         else return;
     }
 
     clearGame = () => {
+        this.stopObjects();
+        this.removeListeners();
+
         this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.hammer = null;
         this.world = null;
         this.biomes = [];
+        this.pug = null;
     }
 
     render = () => {
@@ -195,6 +249,8 @@ class Render {
             if (!this.world.getPlayer().tryAddToDatabase())
                 this.openNetworkModal();
 
+            this.openRestartModal();
+
             this.world = null;
 
         }
@@ -271,6 +327,7 @@ class Render {
 
     init = (world) => {
         this.world = world;
+        this.playerNickname = this.world.getPlayer().getNickname();
         this.world.biomes.forEach(biome => {
             this.biomes = this.biomes.concat(biome);
         });
@@ -285,6 +342,18 @@ class Render {
             });
             biome.getObjects().forEach(object => {
                 object.start();
+            })
+        });
+    }
+
+    stopObjects = () => {
+        this.pug.stop();
+        this.biomes.forEach(biome => {
+            biome.getTiles().forEach(tile => {
+                tile.stop();
+            });
+            biome.getObjects().forEach(object => {
+                object.stop();
             })
         });
     }
