@@ -19,13 +19,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' *.googleapis.com data: gap:
-        https://ssl.gstatic.com;
-        script-src 'self' 'unsafe-inline' 'unsafe-eval'
-        https://*.gstatic.com https://*.googleapis.com;
-        style-src 'self' 'unsafe-inline';
-        media-src *;
-        connect-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,7 +52,7 @@
                     <div id="highscores-modal__content" class="modal__content">
                         <span id="highscores-modal__close" class="modal__close">&times;</span>
                         <h3>Highscores</h3>
-                        <table class="highscores-table">
+                        <table id="highscores-table" class="highscores-table">
                             <thead>
                                 <tr>
                                     <th>Nickname</th>
@@ -75,6 +68,16 @@
                                 <tr><td>-</td><td>-</td><td>-</td></tr>
                             </tbody>
                             </table>
+                    </div>
+                </div>
+                <div id="network-modal" class="modal">
+                    <div id="network__content" class="modal__content">
+                        <span id="network-modal__close" class="modal__close">&times;</span>
+                        <h3>Warning!</h3>
+                        <p><strong>Check your network connection</strong></p>
+                        <p>Network connection is needed to save the score.</p>
+                        <p>Otherwise the results will be lost.</p>
+                        <p><em>After changes restart the game.</em></p>
                     </div>
                 </div>
                 <div id="menu" class="menu">

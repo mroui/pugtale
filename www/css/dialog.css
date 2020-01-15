@@ -11,7 +11,7 @@
 
 .modal__content {
     position: relative;
-    width: 50vw;
+    width: 60vw;
     margin: auto;
     padding: 20px;
     background-color: #fefefe;
@@ -63,4 +63,9 @@
     font-size: 16px;
     font-weight: bold;
     color: #FFFFFF;
+}
+
+#network-modal {
+    display: flex;
+    z-index: 2;
 }
