@@ -4,8 +4,8 @@ class Menu {
         this.assetsLoader = assetsLoader;
         this.sound = null;
         this.soundsMute = false;
-        this.highscore = [];
         this.setListeners();
+        this.readFromDatabase();
     }
 
     playMenuMusic = () => {
@@ -69,7 +69,6 @@ class Menu {
     }
 
     readFromDatabase = () => {
-        this.highscore = [];
         let row = 1;
         if (database !== null && navigator.connection.type !== 'none') {
             database.collection("highscores").orderBy("score", "desc").limit(5).get().then(querySnapshot => {
