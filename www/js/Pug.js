@@ -153,6 +153,7 @@ class Pug extends GameObject {
             let w = this.isAttachedTo.getW();
             let h = this.isAttachedTo.getH();
             if (!this.isOnCenterCollision(x, y, w, h)){
+                this.isAttachedTo.setIsDisplayed(false);
                 this.setAttachment(null);
                 if (this.getCollisionSensibility() && (this.getCurrentBiome() === "RIVER" || this.getCurrentBiome() === "SKY"))
                     this.initCollision();
