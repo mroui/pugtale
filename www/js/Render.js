@@ -152,7 +152,7 @@ class Render {
 
         this.objectsContext.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height);
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
+
         this.hammer = null;
         this.world = null;
         this.biomes = [];
@@ -234,11 +234,20 @@ class Render {
 
     checkStatuses = () => {
         this.checkScore();
+        this.checkLevelStatus();
         this.checkMoveWorld();
         this.checkRemoveRespawn();
         this.checkRespawnWorld();
         this.checkCurrentBiome();
         this.checkGameStatus();
+    }
+
+    checkLevelStatus = () => {
+        let score = this.world.getPlayer().getScore();
+        if (score % 20 === 0 && score >= 20 && this.pug.isPossibleToLevelUp()) {
+            this.pug.levelUp = false;
+            this.world.levelUp();
+        }
     }
 
     checkGameStatus = () => {

@@ -37,12 +37,21 @@ class Pug extends GameObject {
         this.jumpSound = new Sound(this.assetsLoader.get("JUMP"));
 
         this.hearts = 3;
+        this.possibilityToLevelUp = true;
 
         this.setDirection(STOP);
     }
 
     looseHeart = () => {
         this.hearts--;
+    }
+
+    isPossibleToLevelUp = () => {
+        return this.possibilityToLevelUp;
+    }
+
+    setPossibilityToLevelUp = possible => {
+        this.possibilityToLevelUp = possible;
     }
 
     getCurrentBiome = () => {
@@ -58,8 +67,10 @@ class Pug extends GameObject {
             this.passedWorldTemporary++;
         } else if (this.direction == LEFT) this.passedWorldTemporary--;
 
-        if (this.passedWorldTemporary > this.passedWorld)
+        if (this.passedWorldTemporary > this.passedWorld){
             this.passedWorld = this.passedWorldTemporary;
+            this.possibilityToLevelUp = true;
+        }
     }
 
     getPassedWorld = () => {
