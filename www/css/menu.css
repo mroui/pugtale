@@ -39,7 +39,6 @@
     position: relative;
     cursor: pointer;
     top: 10px;
-    background: url(../assets/images/pug-running.gif) 120% no-repeat;
 }
 
 @media screen and (max-width: 720px) {
