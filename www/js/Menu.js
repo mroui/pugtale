@@ -4,6 +4,7 @@ class Menu {
         this.assetsLoader = assetsLoader;
         this.sound = null;
         this.soundsMute = false;
+        this.highscore = [];
         this.setListeners();
     }
 
@@ -39,13 +40,23 @@ class Menu {
         document.getElementById("menu-highscores").addEventListener("click", this.openHighscoresModal);
         document.getElementById("credits-modal__close").addEventListener("click", this.hideCreditsModal);
         document.getElementById("highscores-modal__close").addEventListener("click", this.hideHighscoresModal);
+        document.getElementById("network-modal__close").addEventListener("click", this.hideNetworkModal);
         window.onclick = (e) => {
             if (e.target == document.getElementById("credits-modal")) this.hideCreditsModal();
             else if (e.target == document.getElementById("highscores-modal")) this.hideHighscoresModal();
+            else if (e.target == document.getElementById("network-modal")) this.hideNetworkModal();
         }
 
         document.addEventListener("pause", this.muteOnBackground, false);
         document.addEventListener("resume", this.muteOnForeground, false);
+    }
+
+    hideNetworkModal = () => {
+        document.getElementById("network-modal").style.display = "none";
+    }
+
+    openNetworkModal = () => {
+        document.getElementById("network-modal").style.display = "flex";
     }
 
     hideHighscoresModal = () => {
@@ -54,6 +65,23 @@ class Menu {
 
     openHighscoresModal = () => {
         document.getElementById("highscores-modal").style.display = "flex";
+        this.readFromDatabase();
+    }
+
+    readFromDatabase = () => {
+        this.highscore = [];
+        let row = 1;
+        if (database !== null && navigator.connection.type !== 'none') {
+            database.collection("highscores").orderBy("score", "desc").limit(5).get().then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    const currentRow = document.getElementById("highscores-table").rows[row].cells;
+                    currentRow[0].innerHTML = doc.data()["nickname"];
+                    currentRow[1].innerHTML = doc.data()["score"];
+                    currentRow[2].innerHTML = doc.data()["date"];
+                    row++;
+                });
+            });
+        }
     }
 
     hideCreditsModal = () => {
