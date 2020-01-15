@@ -1,3 +1,6 @@
+let database = null;
+
+
 class App {
 
     constructor() {
@@ -23,6 +26,11 @@ class App {
         let listeningElement = parentElement.querySelector('.listening');
         let receivedElement = parentElement.querySelector('.received');
 
+        if (navigator.connection.type !== 'none') {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.firestore();
+        }
+
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
     }
@@ -36,6 +44,8 @@ class App {
     start = () => {
         let menu = new Menu(this.assetsLoader);
         menu.playMenuMusic();
+        //TODO: UNMUTE IT LATER
+        menu.sound.mute(true);
     }
 
 };
