@@ -180,7 +180,7 @@ class Render {
                         this.draw(tile, this.context);
                 });
                 biome.getObjects().forEach(object => {
-                    if (object.getIsDisplayed())
+                    if (object && object.getIsDisplayed())
                         this.draw(object, this.objectsContext);
                 });
             });
@@ -231,7 +231,7 @@ class Render {
     checkCollision = () => {
         this.biomes.forEach(biome => {
             biome.getObjects().forEach(object => {
-                if (this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), object.getType(), this.objectsContext)) {
+                if (object && this.pug.getCollisionSensibility() && this.pug.isBoxCollision(object.getX(), object.getY(), object.getW(), object.getH(), object.getType(), this.objectsContext)) {
                     switch(object.getType()) {
                         case "RIVER":
                             this.pug.setAttachment(object);
@@ -343,9 +343,9 @@ class Render {
             });
             biome.getObjects().forEach((object, index) => {
                 let removeObject = this.biomes[indexBiome].getObjects()[index];
-                if (!object.getIsDisplayed()) {
+                if (object && !object.getIsDisplayed()) {
                     this.biomes[indexBiome].getObjects().splice(index, 1);
-                    if (object.getToRespawn())
+                    if (object && object.getToRespawn())
                         this.biomes[indexBiome].getObjects().push(this.rerenderPassedObject(indexBiome, removeObject));
                 }
             });
@@ -368,7 +368,7 @@ class Render {
                 tile.start();
             });
             biome.getObjects().forEach(object => {
-                object.start();
+                if (object !== null) object.start();
             })
         });
     }
