@@ -1,3 +1,4 @@
 plugins/*
 platforms/*
 node_modules
+www/js/firebase.js
