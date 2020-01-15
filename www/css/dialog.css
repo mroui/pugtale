@@ -90,3 +90,11 @@
     cursor: pointer;
     top: 10px;
 }
+
+.modal__input {
+    width: 45%;
+    padding: 10px;
+    margin: 10px;
+    border: 5px solid rgb(243, 241, 241);
+    box-sizing: border-box;
+}
