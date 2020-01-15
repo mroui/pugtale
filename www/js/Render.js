@@ -104,6 +104,7 @@ class Render {
 
     openRestartModal = () => {
         document.getElementById("restart-modal").style.display = "flex";
+        document.getElementById("restart-model-score").innerHTML =  "Your score: " + this.world.getPlayer().getScore();
     }
 
     hideNetworkModal = () => {
