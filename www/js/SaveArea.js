@@ -26,8 +26,8 @@ class SaveArea extends Biome {
     }
 
     spawnObject = (onTileY, onTileX) => {
-        let powerupProbability = rand(0, 7);
-        if (powerupProbability === 7) {
+        let powerupProbability = rand(0, 5);
+        if (powerupProbability === 5) {
             this.randAssetAndType();
             let object = new Powerup(this.powerupAsset, 0, 0, this.powerupW, this.powerupH, onTileX, onTileY, this.powerupW, this.powerupH, false, 0, this.powerupType);
             return object;
