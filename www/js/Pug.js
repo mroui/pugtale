@@ -38,6 +38,7 @@ class Pug extends GameObject {
         this.collectSound = new Sound(this.assetsLoader.get("COLLECT"));
 
         this.hearts = 3;
+        this.scoreToAdd = 0;
         this.possibilityToLevelUp = true;
 
         this.setDirection(STOP);
@@ -154,8 +155,10 @@ class Pug extends GameObject {
             let w = this.isAttachedTo.getW();
             let h = this.isAttachedTo.getH();
             if (!this.isOnCenterCollision(x, y, w, h)){
-                this.isAttachedTo.setIsDisplayed(false);
-                this.isAttachedTo.setToRespawn(true);
+                if (this.getCurrentBiome() === "SKY") {
+                    this.isAttachedTo.setIsDisplayed(false);
+                    this.isAttachedTo.setToRespawn(true);
+                }
                 this.setAttachment(null);
                 if (this.getCollisionSensibility() && (this.getCurrentBiome() === "RIVER" || this.getCurrentBiome() === "SKY"))
                     this.initCollision();
@@ -207,6 +210,10 @@ class Pug extends GameObject {
         this.collisionSensibility = collisionSensibility;
     }
 
+    getScoreToAdd = () => {
+        return this.scoreToAdd;
+    }
+
     initCollision = () => {
         this.setCollisionSensibility(false);
         this.startHitAnim();
@@ -221,6 +228,22 @@ class Pug extends GameObject {
             this.x  += this.w;
         } else if(this.x !== 0) {
             this.x  -= this.w;
+        }
+    }
+
+    initPowerupCollision = type => {
+        if (!this.soundsMute) this.collectSound.play();
+        switch(type) {
+            case "POWERUP-HEAL":
+                if (this.hearts < 3) this.hearts++;
+                return;
+            case "POWERUP-SCORE":
+                this.scoreToAdd += 10;
+                return;
+            case "POWERUP-UNTOUCHED":
+                this.setCollisionSensibility(false);
+                this.startHitAnim();
+                return;
         }
     }
 

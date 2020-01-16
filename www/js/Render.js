@@ -243,6 +243,13 @@ class Render {
                             this.pug.setAttachment(null);
                             this.pug.initCollision();
                             return;
+                        case "POWERUP-HEAL":
+                        case "POWERUP-SCORE":
+                        case "POWERUP-UNTOUCHED":
+                            this.pug.initPowerupCollision(object.getType());
+                            object.stopAnim();
+                            object.setIsDisplayed(false);
+                            return;
                     }
                 }
             });
@@ -302,7 +309,7 @@ class Render {
     }
 
     checkScore = () => {
-        this.world.getPlayer().setScore(this.pug.getPassedWorld());
+        this.world.getPlayer().setScore(this.pug.getPassedWorld() + this.pug.getScoreToAdd());
     }
 
     checkRespawnWorld = () => {

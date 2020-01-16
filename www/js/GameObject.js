@@ -173,7 +173,7 @@ class GameObject {
             this.y < y + h && this.y + this.h > y) {
                 if (type === "STREET")
                     return this.isAlphaCollision(context);
-                else if (type === "RIVER" || type === "SKY")
+                else
                     return this.isOnCenterCollision(x, y, w, h);
         }
         else return false;
