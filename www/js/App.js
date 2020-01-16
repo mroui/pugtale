@@ -44,8 +44,6 @@ class App {
     start = () => {
         let menu = new Menu(this.assetsLoader);
         menu.playMenuMusic();
-        //TODO: UNMUTE IT LATER
-        menu.sound.mute(true);
     }
 
 };
