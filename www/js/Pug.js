@@ -41,6 +41,9 @@ class Pug extends GameObject {
         this.scoreToAdd = 0;
         this.possibilityToLevelUp = true;
 
+        this.animStandInterval = null;
+        this.standColumns = 0;
+
         this.setDirection(STOP);
     }
 
@@ -100,6 +103,11 @@ class Pug extends GameObject {
     updateState = () => {
         requestAnimationFrame(this.updateState);
 
+        if (this.direction === STOP && this.animStandInterval === null) {
+            this.stopAnim();
+            this.startStandAnim();
+        }
+
         if (this.direction === STOP && this.isAttachedTo !== null) {
             if (this.isAttachedTo.getStartY() < 0) {
                 if (this.y+1 < this.canvas.height-this.tileH)
@@ -110,7 +118,12 @@ class Pug extends GameObject {
             } else this.checkAttachment();
         }
 
-        if (this.direction != STOP && this.passedDistance < this.tileW) {
+        if (this.direction !== STOP && this.passedDistance < this.tileW) {
+
+            if(this.animStandInterval !== null){
+                this.stopStandAnim();
+            }
+
             switch (this.direction) {
             case UP:
                 if (this.y-this.speed >= 0) this.y -= this.speed;
@@ -245,6 +258,25 @@ class Pug extends GameObject {
                 this.startHitAnim();
                 return;
         }
+    }
+
+    startStandAnim = () =>{
+        this.animStandInterval = setInterval(this.updateStandAnim, 150);
+    }
+
+    stopStandAnim = () => {
+        this.column = 0;
+        clearInterval(this.animStandInterval);
+        this.animStandInterval = null;
+    }
+
+    updateStandAnim = () => {
+        this.row = 4;
+        if (this.standColumns === this.columnsCount-1)
+            this.standColumns = 0;
+        this.standColumns++;
+        this.xa = this.standColumns * this.tileW;
+        this.ya = this.row * this.tileW;
     }
 
 }
