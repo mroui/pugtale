@@ -15,11 +15,7 @@ class Player {
     }
 
     setScore = score => {
-        this.score=score;
-    }
-
-    addToScore = points => {
-        this.score+=points;
+        this.score = score;
     }
 
     getDate = () => {
