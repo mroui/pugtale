@@ -51,6 +51,12 @@
     border: 5px solid rgb(243, 241, 241);
 }
 
+.highscores-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .highscores-table td:nth-child(even) {
     background: rgb(243, 241, 241);
 }
