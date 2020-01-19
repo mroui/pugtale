@@ -117,6 +117,53 @@ Project was made for passing the classes *"Design of Mobile Games"*.
 </p>
 
 ## Setup
+[Download APK file to android device](./APK/Pugtale.apk)
+</br>
+OR
+</br>
+* [Install Node.js](https://nodejs.org/en/download/)
+* Clone repository or download .zip
+```
+git clone https://github.com/mroui/pugtale.git
+```
+* Enter the main folder `pugtale`
+* Update npm, just in case (Node Package Manager, it comes with node.js installation)
+```
+npm install -g npm
+```
+* Install NPM Dependencies
+```
+npm install
+```
+* Install Cordova
+```
+npm install -g cordova
+```
+* Prepare Cordova Dependencies
+```
+cordova prepare
+```
+* Create Firebase project and add the project configurations to the ./www/js/firebase.js file ->
+[Instruction](https://firebase.google.com/docs/web/setup).
+</br>
+Do Step1, Step2 and "Firebase config object" from Step3. Firebase.js file should look like:
+```
+const firebaseConfig = {
+    apiKey: "...",
+    authDomain: "...",
+    databaseURL: "...",
+    projectId: "...",
+    storageBucket: "...",
+    messagingSenderId: "...",
+    appId: "..."
+};
+```
+
+* Run game on browser or Android (with emulator or android device connected via usb)
+```
+cordova run android
+cordova run browser
+```
 
 ## License
 This project is licensed under the terms of the Apache License 2.0, all the assets are under the terms of the CC0 Public-domain license from [opengameart](https://opengameart.org/) or [itch.io](https://itch.io) with free access.
