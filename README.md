@@ -109,6 +109,12 @@ Project was made for passing the classes *"Design of Mobile Games"*.
 <p align="center">
 	<img src="./www/assets/screenshots/pugtale-screenshot-2.png" alt="Pugtale game screenshot on mobile"/>
 </p>
+<p align="center">
+  <video width="640" height="304" controls>
+    <source src="./www/assets/videos/pugtale-video-1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</p>
 
 ## Setup
 
