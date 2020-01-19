@@ -109,18 +109,14 @@ Project was made for passing the classes *"Design of Mobile Games"*.
 <p align="center">
 	<img src="./www/assets/screenshots/pugtale-screenshot-2.png" alt="Pugtale game screenshot on mobile"/>
 </p>
-<p align="center">
-  <video width="640" height="304" controls>
-    <source src="./www/assets/videos/pugtale-video-1.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</p>
+
+[Link to short gameplay](https://raw.githubusercontent.com/mroui/pugtale/master/www/assets/videos/pugtale-video-1.mp4)
 
 ## Setup
-[Download APK file to android device](./APK/Pugtale.apk)
-</br>
+* [Download APK file to android device](./APK/Pugtale.apk)
+</br></br>
 OR
-</br>
+</br></br>
 * [Install Node.js](https://nodejs.org/en/download/)
 * Clone repository or download .zip
 ```
@@ -144,20 +140,26 @@ npm install -g cordova
 cordova prepare
 ```
 * Create Firebase project and add the project configurations to the ./www/js/firebase.js file ->
-[Instruction](https://firebase.google.com/docs/web/setup).
-</br>
-Do Step1, Step2 and "Firebase config object" from Step3. Firebase.js file should look like:
-```
+[Instruction](https://firebase.google.com/docs/web/setup). Do Step1, Step2 and "Firebase config object" from Step3. Firebase.js file should look like:
+</br></br>
 const firebaseConfig = {
+  </br>
     apiKey: "...",
+  </br>
     authDomain: "...",
+  </br>
     databaseURL: "...",
+  </br>
     projectId: "...",
+  </br>
     storageBucket: "...",
+  </br>
     messagingSenderId: "...",
+  </br>
     appId: "..."
+  </br>
 };
-```
+</br></br>
 
 * Run game on browser or Android (with emulator or android device connected via usb)
 ```
