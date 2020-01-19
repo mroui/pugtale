@@ -88,6 +88,8 @@ Project was made for passing the classes *"Design of Mobile Games"*.
 * Accessible for both younger and older players
 
 ## Technologies
+* HTML, CSS
+* JavaScript
 * Cordova 9.0.0
 * Cordova plugins:
   * cordova-plugin-browsersyncs-gen2 1.1.7
